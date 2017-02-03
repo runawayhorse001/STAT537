@@ -1,0 +1,9 @@
+---
+title: "STAT 537: Statistics for Research I"
+author: "Ming Chen & Wenqiang Feng"
+date: "1/27/2017"
+output: html_document
+---
+
+This should go without saying, but I’ll include it within this point, absolutely do not plagiarize. 
+
