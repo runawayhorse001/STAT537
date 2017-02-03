@@ -1,6 +1,6 @@
 ---
-title: "about"
-author: "Wenqiang Feng"
+title: "About"
+author: "Ming Chen & Wenqiang Feng"
 date: "2/2/2017"
 output: html_document
 ---

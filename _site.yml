@@ -7,20 +7,46 @@ navbar:
     - text: "Home"
       icon: fa-home
       href: index.html
-    - text: "More"
+    - text: "Notes"
       icon: fa-gear
       menu:
-        - text: "Homeworks"
+        - text: "Chapter 1"
+        - text: "Note #1"
+          href:  hw1.html
+        - text: "Note #2"
+          href: hw2.html
+        - text: "---------"
+        - text: "Chapter 2"
+        - text: "Note #3"
+          href:  projtct1.html
+        - text: "Note #4"
+          href: project2.html
+    - text: "Homework"
+      icon: fa-gear
+      menu:
+        - text: "Chapter 1"
         - text: "HW #1"
           href:  hw1.html
         - text: "HW #2"
           href: hw2.html
         - text: "---------"
-        - text: "Projects"
-        - text: "Porject #1"
-          href:  projtct1.html
-        - text: "Project #2"
-          href: project2.html
+        - text: "Chapter 2"
+        - text: "HW #3"
+          href:  hw1.html
+        - text: "HW #4"
+          href: project2.html  
+    - text: "Project"
+      icon: fa-gear
+      menu:
+        - text: "Project 1"
+        - text: "HW #2"
+          href:  project1.html
+        - text: "---------"
+        - text: "Project 2"
+        - text: "HW #3"
+          href:  hw1.html
+        - text: "HW #4"
+          href: project2.html             
     - text: "About"
       icon: fa-info
       href: about.html          
