@@ -4,12 +4,9 @@ author: "Ming Chen & Wenqiang Feng"
 date: "1/27/2017"
 output: html_document
 ---
-This is the shared repository for STAT 537 class at The University of Tennessee, Knoxville. Ming Chen and Wenqiang Feng decided to creat this shared repository on 
-Feb.2, 2017.
-
-This this shared repository contains thier  notes, homework solutions, project solutions. And it also contains some contents from the textbook [An Introduction to Statistical Methods and Data Analysis](http://www.univpgri-palembang.ac.id/perpus-fkip/Perpustakaan/Metodologi/Lyman_Ott,_Michael_Longnecker-An_Introduction_to_Statistical_Methods_and_Data_Analysis,_6th_Edition____-Brooks_Cole(2010).pdf)
+This is the shared repository for STAT 537 class at The University of Tennessee, Knoxville. This shared repository contains thier  notes, homework solutions, project solutions. And it also contains some contents from the textbook [An Introduction to Statistical Methods and Data Analysis](http://www.univpgri-palembang.ac.id/perpus-fkip/Perpustakaan/Metodologi/Lyman_Ott,_Michael_Longnecker-An_Introduction_to_Statistical_Methods_and_Data_Analysis,_6th_Edition____-Brooks_Cole(2010).pdf)
 
 Cheng and Wenqiang want to use this shared repository to share how to use R, Rmarkdown and Github to do the statistics homework problems. Please be aware, however, that the note contains typos as well as incorrect or inaccurate solutions. 
 
-Last but not least: This should go without saying, but I’ll include it within this point, absolutely do not plagiarize. 
+Last but not least: This should go without saying, but I’ll include it within this point, absolutely **do not plagiarize**. 
 
