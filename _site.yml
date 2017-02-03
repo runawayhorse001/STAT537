@@ -39,13 +39,11 @@ navbar:
       icon: fa-gear
       menu:
         - text: "Project 1"
-        - text: "HW #2"
+        - text: "Project #1"
           href:  project1.html
         - text: "---------"
         - text: "Project 2"
-        - text: "HW #3"
-          href:  hw1.html
-        - text: "HW #4"
+        - text: "Project #2"
           href: project2.html             
     - text: "About"
       icon: fa-info
