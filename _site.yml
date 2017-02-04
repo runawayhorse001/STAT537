@@ -1,4 +1,4 @@
-name: "my-website"
+name: "Statistics for Research I"
 output_dir: "docs"
 navbar:
   title: "STAT 537: Statistics for Research I"
@@ -47,8 +47,10 @@ navbar:
           href: project2.html             
     - text: "About"
       icon: fa-info
-      href: about.html          
+      href: about.html 
   right:
+    - icon: fa-github
+      href: https://github.com/runawayhorse001/STAT537
     - icon: fa-question fa-lg
       href: http://web.utk.edu/~wfeng1
 output:
