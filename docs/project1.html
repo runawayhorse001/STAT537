@@ -203,10 +203,10 @@ $(document).ready(function () {
     <li class="divider"></li>
     <li class="dropdown-header">Chapter 2</li>
     <li>
-      <a href="projtct1.html">Note #3</a>
+      <a href="hw1.html">Note #3</a>
     </li>
     <li>
-      <a href="project2.html">Note #4</a>
+      <a href="hw2.html">Note #4</a>
     </li>
   </ul>
 </li>
@@ -219,7 +219,7 @@ $(document).ready(function () {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Chapter 1</li>
+    <li class="dropdown-header">Week 1</li>
     <li>
       <a href="hw1.html">HW #1</a>
     </li>
@@ -227,12 +227,41 @@ $(document).ready(function () {
       <a href="hw2.html">HW #2</a>
     </li>
     <li class="divider"></li>
-    <li class="dropdown-header">Chapter 2</li>
+    <li class="dropdown-header">Week 2</li>
     <li>
-      <a href="hw1.html">HW #3</a>
+      <a href="hw3.html">HW #3</a>
     </li>
     <li>
-      <a href="project2.html">HW #4</a>
+      <a href="hw4.html">HW #4</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 3</li>
+    <li>
+      <a href="hw5.html">HW #5</a>
+    </li>
+    <li>
+      <a href="hw6.html">HW #6</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 4</li>
+    <li>
+      <a href="hw7.html">HW #7</a>
+    </li>
+    <li>
+      <a href="hw8.html">HW #8</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 5</li>
+    <li>
+      <a href="hw9.html">HW #9</a>
+    </li>
+    <li>
+      <a href="hw10.html">HW #10</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 6</li>
+    <li>
+      <a href="hw11.html">HW #11</a>
     </li>
   </ul>
 </li>
@@ -293,24 +322,402 @@ $(document).ready(function () {
 </div>
 
 
-<div id="r-markdown" class="section level2">
-<h2>R Markdown</h2>
-<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
-<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
-<pre class="r"><code>summary(cars)</code></pre>
-<pre><code>##      speed           dist       
-##  Min.   : 4.0   Min.   :  2.00  
-##  1st Qu.:12.0   1st Qu.: 26.00  
-##  Median :15.0   Median : 36.00  
-##  Mean   :15.4   Mean   : 42.98  
-##  3rd Qu.:19.0   3rd Qu.: 56.00  
-##  Max.   :25.0   Max.   :120.00</code></pre>
+<div id="you-can-also-get-the-pdf-format-of-wenqiangs-project." class="section level2">
+<h2>You can also get the <a href="./pdf/Midterm.pdf">PDF format</a> of Wenqiang’s Project.</h2>
 </div>
-<div id="including-plots" class="section level2">
-<h2>Including Plots</h2>
-<p>You can also embed plots, for example:</p>
-<p><img src="project1_files/figure-html/pressure-1.png" width="672" /></p>
-<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
+<div id="load-data" class="section level2">
+<h2>Load data</h2>
+<pre class="r"><code>weight = read.table(&quot;./data/Weight.txt&quot;, header =T)
+wlabor = read.csv(&quot;./data/WLabor.csv&quot;, header = T)[,1:3]
+potencies = unlist(read.table(&quot;./data/Potencies.txt&quot;))</code></pre>
+</div>
+<div id="problem-1" class="section level2">
+<h2>Problem 1</h2>
+<div id="a.-create-a-stem-and-leaf-plot-for-these-data" class="section level4">
+<h4>a. Create a stem-and-leaf plot for these data</h4>
+<pre class="r"><code>stem(potencies)</code></pre>
+<pre><code>## 
+##   The decimal point is at the |
+## 
+##   22 | 79
+##   23 | 0234
+##   23 | 68
+##   24 | 013
+##   24 | 589
+##   25 | 0244
+##   25 | 89
+##   26 | 144
+##   26 | 7799
+##   27 | 123</code></pre>
+</div>
+<div id="b.-assess-the-normality-of-these-data" class="section level4">
+<h4>b. Assess the normality of these data</h4>
+<ul>
+<li>The shapiro wilk test indicates the data is from a normal distribution.</li>
+</ul>
+<pre class="r"><code>shapiro.test(potencies)</code></pre>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  potencies
+## W = 0.93847, p-value = 0.08275</code></pre>
+<pre class="r"><code>qqnorm(potencies)
+qqline(potencies)</code></pre>
+<p><img src="project1_files/figure-html/unnamed-chunk-3-1.png" width="480" /></p>
+</div>
+<div id="c.-provide-a-99-confidence-interval-for-the-average-potency" class="section level4">
+<h4>c. Provide a 99% confidence interval for the average potency</h4>
+<pre class="r"><code>mu = mean(potencies)
+s = sd(potencies)
+n = length(potencies)
+SE = s/sqrt(n); SE</code></pre>
+<pre><code>## [1] 0.2682203</code></pre>
+<pre class="r"><code>lower = mu - qt(0.995, df=n-1)*SE; lower</code></pre>
+<pre><code>## [1] 24.35735</code></pre>
+<pre class="r"><code>upper = mu + qt(0.995, df=n-1)*SE; upper</code></pre>
+<pre><code>## [1] 25.83599</code></pre>
+<ul>
+<li>99% confidence interval: <span class="math inline">\([\mu - t_{0.01/2}\frac{s}{\sqrt{n}}, \mu + t_{0.01/2}\frac{s}{\sqrt{n}}]\)</span> = [24.3573479, 25.8359854]
+<ul>
+<li><span class="math inline">\(\mu\)</span> = 25.0966667</li>
+<li>s = 1.4691033</li>
+<li>n = 30</li>
+<li><span class="math inline">\(t_{0.01/2}\)</span> = 2.7563859</li>
+</ul></li>
+</ul>
+</div>
+<div id="d.-based-on-your-results-for-partc-can-we-conclude-that-the-average-potency-is-25-mg-as-advertised" class="section level4">
+<h4>d. Based on your results for part(c), can we conclude that the average potency is 25 mg as advertised?</h4>
+<ul>
+<li>Yes. 25 is within the 99% confidence interval [24.35735, 25.83599].</li>
+</ul>
+</div>
+</div>
+<div id="problem-2" class="section level2">
+<h2>Problem 2</h2>
+<div id="a.-compute-the-difference-scores-between-percentages-for-each-year-and-create-a-stem-and-leaf-plot-for-these-difference-scores." class="section level4">
+<h4>a. Compute the difference scores between percentages for each year and create a stem-and-leaf plot for these difference scores.</h4>
+<ul>
+<li>Difference score</li>
+</ul>
+<pre class="r"><code>library(plyr)
+difference_scores = mutate(wlabor, difference_scores = Year_68 - Year_72)
+difference_scores</code></pre>
+<pre><code>##             City Year_68 Year_72 difference_scores
+## 1           N.Y.    0.42    0.45             -0.03
+## 2           L.A.    0.50    0.50              0.00
+## 3        Chicago    0.52    0.52              0.00
+## 4   Philadelphia    0.45    0.45              0.00
+## 5        Detroit    0.43    0.46             -0.03
+## 6  San Francisco    0.55    0.55              0.00
+## 7         Boston    0.45    0.60             -0.15
+## 8          Pitt.    0.34    0.49             -0.15
+## 9      St. Louis    0.45    0.35              0.10
+## 10   Connecticut    0.54    0.55             -0.01
+## 11   Wash., D.C.    0.42    0.52             -0.10
+## 12         Cinn.    0.51    0.53             -0.02
+## 13     Baltimore    0.49    0.57             -0.08
+## 14        Newark    0.54    0.53              0.01
+## 15 Minn/St. Paul    0.50    0.59             -0.09
+## 16       Buffalo    0.58    0.64             -0.06
+## 17       Houston    0.49    0.50             -0.01
+## 18     Patterson    0.56    0.57             -0.01
+## 19        Dallas    0.63    0.64             -0.01</code></pre>
+<ul>
+<li>Stem-and-leaf plot for difference scores</li>
+</ul>
+<pre class="r"><code>stem(difference_scores$difference_scores)</code></pre>
+<pre><code>## 
+##   The decimal point is 1 digit(s) to the left of the |
+## 
+##   -1 | 550
+##   -0 | 9863321111
+##    0 | 00001
+##    1 | 0</code></pre>
+</div>
+<div id="b.-assess-the-normality-of-these-difference-scores." class="section level4">
+<h4>b. Assess the normality of these difference scores.</h4>
+<ul>
+<li>The shapiro wilk test indicates non-normality of these differenct scores</li>
+</ul>
+<pre class="r"><code>shapiro.test(difference_scores$difference_scores)</code></pre>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  difference_scores$difference_scores
+## W = 0.89814, p-value = 0.04503</code></pre>
+<pre class="r"><code>qqnorm(difference_scores$difference_scores)
+qqline(difference_scores$difference_scores)</code></pre>
+<p><img src="project1_files/figure-html/unnamed-chunk-7-1.png" width="480" /></p>
+</div>
+<div id="c.-based-upon-the-results-from-partb-wilcoxon-signed-ranks-test-is-applied-to-determined-whether-there-is-a-significant-difference." class="section level4">
+<h4>c. Based upon the results from part(b), wilcoxon signed ranks test is applied to determined whether there is a significant difference.</h4>
+<ul>
+<li>P value = 0.01324 &lt; 0.05, indicates a significant difference between the average percentages in 1968 and in 1972.</li>
+</ul>
+<pre class="r"><code>wilcoxTest = wilcox.test(difference_scores$difference_scores, conf.int = T); wilcoxTest</code></pre>
+<pre><code>## 
+##  Wilcoxon signed rank test with continuity correction
+## 
+## data:  difference_scores$difference_scores
+## V = 16, p-value = 0.01324
+## alternative hypothesis: true location is not equal to 0
+## 95 percent confidence interval:
+##  -0.08004133 -0.01002685
+## sample estimates:
+## (pseudo)median 
+##    -0.04498224</code></pre>
+</div>
+<div id="d.-estimate-the-difference-with-a-95-condifence-interval" class="section level4">
+<h4>d. Estimate the difference with a 95% condifence interval</h4>
+<pre class="r"><code>difference = wilcoxTest$estimate; difference</code></pre>
+<pre><code>## (pseudo)median 
+##    -0.04498224</code></pre>
+<pre class="r"><code>CI95 = as.numeric(wilcoxTest$conf.int); CI95</code></pre>
+<pre><code>## [1] -0.08004133 -0.01002685</code></pre>
+<ul>
+<li>Difference = -0.0449822</li>
+<li>95% CI = -0.0800413, -0.0100269</li>
+</ul>
+</div>
+</div>
+<div id="problem-3" class="section level2">
+<h2>Problem 3</h2>
+<div id="a.-stacked-histogram-and-side-by-side-box-and-whisker-plots" class="section level4">
+<h4>a. Stacked histogram and side-by-side box-and-whisker plots</h4>
+<ul>
+<li>Stacked histogram</li>
+</ul>
+<pre class="r"><code>library(ggplot2)
+ggplot(weight, aes(Time, fill=Therapy, alpha=0.5)) +
+  geom_histogram(binwidth = 5)</code></pre>
+<p><img src="project1_files/figure-html/unnamed-chunk-10-1.png" width="480" /></p>
+<ul>
+<li>Box-and-whisker plots</li>
+</ul>
+<pre class="r"><code>ggplot(weight, aes(Therapy, Time)) +
+  geom_boxplot()</code></pre>
+<p><img src="project1_files/figure-html/unnamed-chunk-11-1.png" width="480" /></p>
+</div>
+<div id="b.-assess-the-normality-of-data-from-each-of-the-two-therapies" class="section level4">
+<h4>b. Assess the normality of data from each of the two therapies</h4>
+<ul>
+<li>Normality assessment for therapy A
+<ul>
+<li>p value = 0.7462, indicating that the data is from a normal distribution.</li>
+</ul></li>
+</ul>
+<pre class="r"><code>therapyA = weight[weight$Therapy==&quot;A&quot;, 2]
+shapiro.test(therapyA)</code></pre>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  therapyA
+## W = 0.95952, p-value = 0.7462</code></pre>
+<ul>
+<li>Normality assessment for therapy B
+<ul>
+<li>p value = 0.4024, indicating that the data is from a normal distribution.</li>
+</ul></li>
+</ul>
+<pre class="r"><code>therapyB = weight[weight$Therapy==&quot;B&quot;, 2]
+shapiro.test(therapyB)</code></pre>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  therapyB
+## W = 0.93559, p-value = 0.4024</code></pre>
+</div>
+<div id="c.-95-confidence-interval-for-the-mean-times" class="section level4">
+<h4>c. 95% confidence interval for the mean times</h4>
+<pre class="r"><code>mu = mean(therapyA)
+s = sd(therapyA)
+n = length(therapyA)
+SE = s/sqrt(n); SE</code></pre>
+<pre><code>## [1] 2.725799</code></pre>
+<pre class="r"><code>lower = mu - qt(0.975, df=n-1)*SE; lower</code></pre>
+<pre><code>## [1] 21.67638</code></pre>
+<pre class="r"><code>upper = mu + qt(0.975, df=n-1)*SE; upper</code></pre>
+<pre><code>## [1] 33.55439</code></pre>
+<ul>
+<li>95% confidence interval for therapy A
+<ul>
+<li>99% confidence interval: <span class="math inline">\([\mu - t_{0.05/2}\frac{s}{\sqrt{n}}, \mu + t_{0.01/2}\frac{s}{\sqrt{n}}]\)</span> = [21.6763787, 33.5543905]
+<ul>
+<li><span class="math inline">\(\mu\)</span> = 27.6153846</li>
+<li>s = 9.8280081</li>
+<li>n = 13</li>
+<li><span class="math inline">\(t_{0.05/2}\)</span> = 2.1788128</li>
+</ul></li>
+</ul></li>
+</ul>
+<pre class="r"><code>mu = mean(therapyB)
+s = sd(therapyB)
+n = length(therapyB)
+SE = s/sqrt(n); SE</code></pre>
+<pre><code>## [1] 1.117372</code></pre>
+<pre class="r"><code>lower = mu - qt(0.975, df=n-1)*SE; lower</code></pre>
+<pre><code>## [1] 32.25776</code></pre>
+<pre class="r"><code>upper = mu + qt(0.975, df=n-1)*SE; upper</code></pre>
+<pre><code>## [1] 37.12685</code></pre>
+<ul>
+<li>95% confidence interval for therapy B
+<ul>
+<li>99% confidence interval: <span class="math inline">\([\mu - t_{0.05/2}\frac{s}{\sqrt{n}}, \mu + t_{0.01/2}\frac{s}{\sqrt{n}}]\)</span> = [32.2577627, 37.1268527]
+<ul>
+<li><span class="math inline">\(\mu\)</span> = 34.6923077</li>
+<li>s = 4.0287429</li>
+<li>n = 13</li>
+<li><span class="math inline">\(t_{0.05/2}\)</span> = 2.1788128</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="d.-determine-if-the-variances-of-the-times-from-the-two-therapies-are-equal" class="section level4">
+<h4>d. Determine if the variances of the times from the two therapies are equal</h4>
+<pre class="r"><code>varTest=var.test(therapyA, therapyB); varTest</code></pre>
+<pre><code>## 
+##  F test to compare two variances
+## 
+## data:  therapyA and therapyB
+## F = 5.951, num df = 12, denom df = 12, p-value = 0.00426
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##   1.815845 19.503164
+## sample estimates:
+## ratio of variances 
+##           5.951027</code></pre>
+<ul>
+<li>p value = 0.0042603 &lt; 0.05, reject <span class="math inline">\(H_{0}\)</span>. The variances are not equal.</li>
+</ul>
+</div>
+<div id="e.-test-whether-the-means-of-the-times-of-the-two-therapies-are-equal" class="section level4">
+<h4>e. Test whether the means of the times of the two therapies are equal</h4>
+<ul>
+<li>Based upon the results from part(d), wilcox rank sum test is applied.</li>
+</ul>
+<pre class="r"><code>wilcoxTest=wilcox.test(therapyA, therapyB, conf.int = T); wilcoxTest</code></pre>
+<pre><code>## Warning in wilcox.test.default(therapyA, therapyB, conf.int = T): cannot
+## compute exact p-value with ties</code></pre>
+<pre><code>## Warning in wilcox.test.default(therapyA, therapyB, conf.int = T): cannot
+## compute exact confidence intervals with ties</code></pre>
+<pre><code>## 
+##  Wilcoxon rank sum test with continuity correction
+## 
+## data:  therapyA and therapyB
+## W = 35, p-value = 0.01185
+## alternative hypothesis: true location shift is not equal to 0
+## 95 percent confidence interval:
+##  -13.999970  -2.000003
+## sample estimates:
+## difference in location 
+##              -8.000047</code></pre>
+<ul>
+<li>p value = 0.0118461, indicating a significant difference in the means of the times of the two therapies.</li>
+</ul>
+<pre class="r"><code>difference = wilcoxTest$estimate; difference</code></pre>
+<pre><code>## difference in location 
+##              -8.000047</code></pre>
+<pre class="r"><code>CI95 = as.numeric(wilcoxTest$conf.int); CI95</code></pre>
+<pre><code>## [1] -13.999970  -2.000003</code></pre>
+<ul>
+<li>Time difference = -8.0000465</li>
+<li>95% confidence interval = -13.9999697, -2.0000026</li>
+</ul>
+</div>
+</div>
+<div id="problem-4" class="section level2">
+<h2>Problem 4</h2>
+<div id="data" class="section level4">
+<h4>Data</h4>
+<pre class="r"><code>clearance_granted = c(49, 117)
+clearance_not_granted = c(33, 17)
+employee = data.frame(clearance_granted, clearance_not_granted)
+rownames(employee) = c(&quot;salaried&quot;, &quot;wage_earning&quot;)</code></pre>
+</div>
+<div id="a.-determine-whether-clearance-to-return-to-work-is-independent-of-employee-type." class="section level4">
+<h4>a. Determine whether clearance to return to work is independent of employee type.</h4>
+<pre class="r"><code>Xsq = chisq.test(employee); Xsq</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
+## 
+## data:  employee
+## X-squared = 20.194, df = 1, p-value = 6.997e-06</code></pre>
+<pre class="r"><code>chisqV = Xsq$statistic; chisqV</code></pre>
+<pre><code>## X-squared 
+##  20.19402</code></pre>
+<pre class="r"><code>p = Xsq$p.value; p</code></pre>
+<pre><code>## [1] 6.997145e-06</code></pre>
+<ul>
+<li>Results: <span class="math inline">\(\chi^{2}\)</span> = 20.1940167; p-value &lt; 0.001 . Reject null hypothesis.</li>
+<li>Conclusion: clearance to return to work is not independent of exployee type.</li>
+</ul>
+</div>
+<div id="b.-estimate-the-proportion-of-salaried-workers-granted-clearance" class="section level4">
+<h4>b. Estimate the proportion of salaried workers granted clearance</h4>
+<pre class="r"><code>salariesProp = prop.test(49, 49+33, conf.level = 0.99); salariesProp</code></pre>
+<pre><code>## 
+##  1-sample proportions test with continuity correction
+## 
+## data:  49 out of 49 + 33, null probability 0.5
+## X-squared = 2.7439, df = 1, p-value = 0.09763
+## alternative hypothesis: true p is not equal to 0.5
+## 99 percent confidence interval:
+##  0.4499513 0.7299512
+## sample estimates:
+##        p 
+## 0.597561</code></pre>
+<ul>
+<li>Proportion = 0.597561</li>
+<li>99% confidence interval = [0.4499513, 0.7299512]</li>
+</ul>
+</div>
+<div id="c.-estimate-the-proportion-of-wage-earning-workers-granted-clearance" class="section level4">
+<h4>c. Estimate the proportion of wage-earning workers granted clearance</h4>
+<pre class="r"><code>wageearningProp = prop.test(117, 117+17, conf.level = 0.99); wageearningProp</code></pre>
+<pre><code>## 
+##  1-sample proportions test with continuity correction
+## 
+## data:  117 out of 117 + 17, null probability 0.5
+## X-squared = 73.142, df = 1, p-value &lt; 2.2e-16
+## alternative hypothesis: true p is not equal to 0.5
+## 99 percent confidence interval:
+##  0.7767396 0.9326389
+## sample estimates:
+##         p 
+## 0.8731343</code></pre>
+<ul>
+<li>Proportion = 0.8731343</li>
+<li>99% confidence interval = [0.7767396, 0.9326389]</li>
+</ul>
+</div>
+<div id="d.-estimate-the-difference-in-these-two-proportions" class="section level4">
+<h4>d. Estimate the difference in these two proportions</h4>
+<pre class="r"><code>diffPropTest = prop.test(as.matrix(employee)); diffPropTest</code></pre>
+<pre><code>## 
+##  2-sample test for equality of proportions with continuity
+##  correction
+## 
+## data:  as.matrix(employee)
+## X-squared = 20.194, df = 1, p-value = 6.997e-06
+## alternative hypothesis: two.sided
+## 95 percent confidence interval:
+##  -0.4055746 -0.1455721
+## sample estimates:
+##    prop 1    prop 2 
+## 0.5975610 0.8731343</code></pre>
+<pre class="r"><code>diffProp = diffPropTest$estimate[1] -diffPropTest$estimate[2]; diffProp </code></pre>
+<pre><code>##     prop 1 
+## -0.2755734</code></pre>
+<pre class="r"><code>CI99 = diffPropTest$conf.int; CI99</code></pre>
+<pre><code>## [1] -0.4055746 -0.1455721
+## attr(,&quot;conf.level&quot;)
+## [1] 0.95</code></pre>
+<ul>
+<li>Proportion difference = -0.2755734</li>
+<li>95% confidence interval = [-0.4055746, -0.1455721]</li>
+</ul>
+</div>
 </div>
 
 <center>Copyright &copy; 2017 Ming Chen  & Wenqiang Feng. All rights reserved.</center>

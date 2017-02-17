@@ -1,0 +1,158 @@
+---
+title: "Homework #6"
+author: "Ming Chen & Wenqiang Feng"
+date: "2/2/2017"
+output: html_document
+---
+
+## You can also get the [PDF format](./pdf/HW6.pdf) of Wenqiang's Homework.
+
+### Problem 10.12
+
+Since y = 0, we estimate the adjusted $\pi$
+
++ $\hat{\pi}_{Adj} = \frac{3/8}{n+3/4} = \frac{3/8}{20+3/4}$ = 0.01807229
++ 95% CI = $[0, 1-(\alpha/2)^{1/n}]$ = $[0, 1-(0.05/2)^{1/20}]$ = [0, 0.1684335]
+
+```{R}
+
+```
+
+### Problem 10.14
+
+* (a). Yes. Because both $n\pi \geq 5$ and $n(1-\pi) > 5$
+
+* (b). Yes. p-value = 0.04829 < 0.05. The null hypothesis is rejected.
+
+    + $H_{0}: p \leq 0.5$
+    + $H_{a}: p > 0.5$
+
+    + calculation:
+        * $\hat{\pi}$ = 424/800 = 0.53
+        * $\pi_{0}$ = 0.5
+        * $\sigma_{\hat{\pi}} = \sqrt{\frac{\pi_{0}(1-\pi_{0})}{n}}$ = $\sqrt{0.5(1-0.5)/800}$ = 0.01767767
+        * $z = \frac{\hat{\pi} - \pi_{0}}{\sigma_{\hat{\pi}}}$ = 1.697056
+        * $z = 1.697056 > z_{0.95} = 1.644854$
+    
+
+
+* (c). 95% CI: $\hat{\pi} \pm 1.96\sigma_{\hat{\pi}}$ = $0.53 \pm 0.01767767$ = [0.5123223, 0.5476777]
+
+
+### Problem 10.18
+
+* parameter estimates
+
+    + $\mu = \hat{\pi_{1}} - \hat{\pi_{2}} = 91/250 - 53/250 = 38/250 = 0.152$
+    + $\sigma = \sqrt{\frac{\pi_{1}(1-\pi_{1})}{n1} + \frac{\pi_{2}(1-\pi_{2})}{n2}}$ = 0.03992794
+    + $z = \mu/\sigma$ = 0.152/0.03992794 = 3.806858
+    
+```{R}
+p1 = 91/250
+p2 = 53/250
+n1 = 250
+n2 = 250
+sigma = sqrt(p1*(1-p1)/n1 + p2*(1-p2)/n2)
+sigma
+```
+
+* (a). 95% CI for $\pi_{2} - \pi_{2}$: $\mu \pm 1.96\sigma = 0.152 \pm 1.96(0.03992794)$ = [0.07374124, 0.2302588]
+
+* (b). $z = 3.806858 > z_{\alpha=0.01} = 2.326348$, hence reject the $H_{0}$. Therefore, the warranty will increase the proportion of customers who will purchase a mower.
+
+* (c). Offering warranty can significantly increase the proportion of people who will purchase a mower. However, whether the dealer should offer warranty or not depends on whether the profit from the additional sales of mower can cover the cost of offering warranty. 
+
+
+### Problem 10.20
+
+* (a). 
+
+    + 95% CI: $\pi_{biofeedback} \pm 1.96\sigma = 0.56 \pm 1.96(0.01569713) = [0.5292336, 0.5907664]$
+        + $\pi_{0} = 1240/2000 = 0.62$
+        + $\pi_{biofeedback}$ = 560/1000 = 0.56
+        + $\sigma = \sqrt{\frac{\pi_{biofeedback}(1-\pi_{biofeedback})}{n}}$ = $\sqrt{{0.56(1-0.56)/1000}}$ =  0.01569713
+        + $z = \frac{|\pi_{biofeedback} - \pi_{0}|}{\sigma}$ = $\frac{|0.56 - 0.62|}{0.01569713}$ = 3.822355
+
+    + 95% CI: $\pi_{NSAID} \pm 1.96\sigma = 0.68 \pm 1.96(0.01475127) = [0.6510875, 0.7089125]$
+        + $\pi_{0} = 1240/2000 = 0.62$
+        + $\pi_{NSAID}$ = 680/1000 = 0.68
+        + $\sigma = \sqrt{\frac{\pi_{NSAID}(1-\pi_{NSAID})}{n}}$ = $\sqrt{{0.68(1-0.68)/1000}}$ =  0.01475127
+        + $z = \frac{|\pi_{NSAID} - \pi_{0}|}{\sigma}$ = $\frac{|0.68 - 0.62|}{0.01475127}$ = 4.067446
+
+
+* (b). Yes. p-value = 4.204e-08 < 0.05. There is a strong evidence that the proportions of patients who experienced a significant reduction in pain are significantly different between the two treatments.
+
+```{R}
+yes = c(560, 680)
+no = c(440, 320)
+pain_reduction = cbind(yes, no)
+rownames(pain_reduction) = c("biofeedback", "NSAID")
+chisq_test = chisq.test(pain_reduction)
+chisq_test
+```
+
+
+* (c). 95% CI on the difference: 
+
+    + $P_{biofeedback} - P_{NSAID}$ = 0.56 - 0.68 = -0.12
+    + 95% CI on the difference: [-0.16321892, -0.07678108]
+    
+```{R}
+prop.test(pain_reduction)
+```
+
+
+
+### Problem 10.78
+
+```{R}
+oneplus = c(10, 14, 19)
+none = c(90, 86, 81)
+tumors = data.frame(oneplus, none)
+rownames(tumors) = c("control", "low_dose", "high_dose")
+tumors
+```
+
+* (a).
+    + control: 10%
+    + low dose: 14%
+    + high dose: 19%
+
+* (b). p-value = 0.1909 > 0.05. We fail to reject the $H_{0}$. There is no strong evidence to show a significant difference in proportions among the three treatments.
+
+```{R}
+chisq.test(tumors)
+```
+
+* (c). No. the Chi-square test failed to reject the null hypothesis.
+
+### Problem 2x2 contigency table
+
+```{R}
+vote_for = c(11, 41)
+vote_against = c(46, 2)
+vote = cbind(vote_for, vote_against)
+rownames(vote) = c("democrat", "republican")
+vote
+```
+
+#### Testing the hypothesis
+
+One of the cells in the 2x2 contigency table has very small value. The large sample assumption is invalid. So we use fisher's exact test for testing our hypothesis.
+
+Since p-value = 2.029e-15, we reject our null hypothesis. There is a strong evidence that the voting for Judge Thomas is NOT independent of political affiliation.
+
+```{R}
+fisher.test(vote, conf.level = 0.99)
+```
+
+
+#### Estimate the difference between the two proportions
+
+* Estimated difference in proportion:  11/(11+46) - 41/(41+2) = -0.7605059
+* 95% CI: [-0.9011466, -0.6198652]
+
+```{R}
+prop.vote.fit = prop.test(vote)
+prop.vote.fit
+```

@@ -8,23 +8,222 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+## You can also get the [PDF format](./pdf/final.pdf) of Wenqiang's Project.
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{R warning=F,message=F}
+library(readxl)
+ads = read_excel("./data/Ads.xlsx")
+ads$ad = as.factor(ads$ad)
+fitness = read_excel("./data/Fitness.xlsx")
+fitness$Gender = as.factor(fitness$Gender)
 ```
 
-## Including Plots
+## Problem 1
 
-You can also embed plots, for example:
+#### a. Analysis of Variance
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{R}
+ads.lm = lm(sales~ad, data=ads)
+anova(ads.lm)
+pval=anova(ads.lm)$`Pr(>F)`[1];pval
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+* __Conclusions__: the p value is `r as.character(pval)`, we therefore reject the $H_{0}$. There is a strong evidence that the average sales among the 4 groups are significantly different.
+
+
+#### b. Lvene's test
+
+```{R warning=F,message=F}
+library(car)
+leveneTest(sales~ad, data=ads)
+pval=leveneTest(sales~ad, data=ads)$`Pr(>F)`[1]; pval
+```
+
+* __Conclusions__: Result from the Levene's test (p value = `r pval`) indicates that the variances in the 4 groups are equal.
+
+#### c. check if the residuals are modeled well by a normal distribution
+
+```{R}
+par(mfrow=c(1,2))
+plot(ads.lm, which=2)
+plot(ads.lm, which=3)
+par(mfrow=c(1,1))
+```
+
+```{R}
+shapiro.test(ads.lm$residuals)
+pval=shapiro.test(ads.lm$residuals)$p.value; pval
+```
+
+* __Conclusion:__ Yes. From the normal QQ plot, we can see that most of the points are located on the line. And the squared root of standardized residuals is independent from the fitted values. The pval from the shapiro test for the residuals is `r pval`, indicating a normal distribution. 
+
+
+#### d. Tukey's HSD procedure
+
+```{R}
+ads.aov = aov(sales~ad, data=ads)
+TukeyHSD(ads.aov, ordered = T)
+```
+
+* __Conclusions__: given a 95% confidence level, the mean sales between 
+
+    + people and display
+    + radio and display
+    + paper and display
+    
+are significantly different. Among the three groups, *people* has the largest average while *display* has the smallest average.
+
+#### e. analysis of variance on the rank
+
+```{R}
+ads.kruskal.wallis = kruskal.test(sales~ad, data=ads); ads.kruskal.wallis
+pval=ads.kruskal.wallis$p.value; pval
+```
+
+* __Conclusions__: the p value from the Kruskal Wallis test is `r as.character(pval)`, indicating that at least two of the four groups are significantly different in the average sales. From the Levene's test in part (b), we know that the variances in the 4 groups are equal, so the application of Kruskal Wallis is appropriate here. 
+
+#### f. Tukey's HSD procedure on the ranks
+
+```{R warning=F, message=F}
+library('PMCMR')
+summary(posthoc.kruskal.nemenyi.test(ads$sales, ads$ad, dist = "Tukey"))
+```
+
+* __Conclusions__: results from the multiple comparisons of rank sums indicate that, the following pairs of groups are significantly different in average sales:
+
+    + paper-display
+    + people-display
+    + radio-display
+    
+
+## Problem 2
+
+#### a. fit the model with all predictors
+
+##### 1. Assumptions of the regression model
+
+* Assumptions:
+  + the relationship between predictors and reponse variable is linear
+  + all variables are multivariate normal
+  + homoscedasticity: the error terms along the regression are equal.
+  + there is little or no multicollinearity
+  + little or no autocorrelation
+  
+
+```{R}
+fitness.lm = lm(Oxygen_Consumption~Runtime+Age+Weight+Run_Pulse+
+                  Rest_Pulse+Maximum_Pulse+Performance, data=fitness)
+summary(fitness.lm)
+```
+
+* Residuals vs predictors plots
+
+```{R}
+res = fitness.lm$residuals
+n = colnames(fitness)[-c(1:3, 6)]
+fitness$Residuals = res
+##plot(Residuals~as.numeric(Gender), data=fitness, xlab="Gender: 1=Female; 2=Male")
+plot(Residuals~Runtime, data=fitness, xlab="Runtime")
+plot(Residuals~Age, data=fitness, xlab="Age")
+plot(Residuals~Weight, data=fitness, xlab="Weight")
+plot(Residuals~Run_Pulse, data=fitness, xlab="Run Pulse")
+plot(Residuals~Rest_Pulse, data=fitness, xlab="Rest Pulse")
+plot(Residuals~Maximum_Pulse, data=fitness, xlab="Maximum Pulse")
+plot(Residuals~Performance, data=fitness)
+```
+
+* Residuals vs fitted values
+
+```{R}
+plot(fitness.lm, which=1)
+```
+
+* __Conclusions__: the residuals appear to be randomly scattered around zero for all plots with predictors and fitted value. And the vertical width of the scatters seems independent of the predictor or fitted values. From the plots, it's reasonable to assume that the error terms have a mean of zero and the variance is constant. So assumptions in our regression module are satisfied.
+
+##### 2. studendized residuals and Cook's D against the observation number
+
+```{R}
+rstudentVal = rstudent(fitness.lm)
+plot(rstudentVal~c(1:length(rstudentVal)), xlab="Observation number", ylab="Studendized residuals")
+abline(h=0, col="blue", lty=3)
+```
+
+
+* Cook's distance against the observation number.
+
+```{R}
+plot(fitness.lm, which=4)
+abline(h=4/31, col="blue", lty=3)
+
+sorted_D = sort(cooks.distance(fitness.lm))
+data.frame(obs_ID = names(sorted_D), cooks_D = sorted_D)
+```
+
+* Conclusions:
+    + Based on the Cook's distance, observations 2 and 15 are larger than the value 4/31 = `r 4/31`, and therefore, are potential influential observations.
+   
+* Remove observation 2 and 15 and refit the model
+
+#### b. stepwise regression
+
+```{R}
+fitness = fitness[-c(2,15), ]
+fitness.lm = lm(Oxygen_Consumption~Runtime+Age+Weight+Run_Pulse+
+                  Rest_Pulse+Maximum_Pulse+Performance, data=fitness)
+summary(fitness.lm)
+
+stepwiseFit = step(fitness.lm, direction = "both", test="F")
+fitnessBest = lm(Oxygen_Consumption~Age+Maximum_Pulse+Run_Pulse+Performance+Weight, data=fitness); summary(fitnessBest)
+coefs = coefficients(fitnessBest); coefs
+```
+
+* According to the AIC criterion, there are five important variables: 
+    + Maximum_Pulse
+    + Age
+    + Weight
+    + Run_Pulse
+    + Performance
+    
+* Accroding to the 0.15 significance entry level criterion, there are four important variables:
+
+    + Run_Pulse
+    + Weight
+    + Age
+    + Performance
+    
+* Refit the model with the five important variables. Given a 5% significant level, four of the five variables are identified as significant:
+    + Age
+    + Run_Pulse
+    + Performance
+    + Weight
+
+Intepretation: Performance has significantly positive effect on the oxygen consumption, while the other three variables have significantly negative effect on the oxygen consumption.
+
+#### c. are there any other models perform nearly as well?
+
+By plotting the Oxygen\_Consumption against the four variables that are identified as significant, I found that the relationship between Oxygen\_Consumption and Weight are not linear. It appears to be a quadratic. So I replace Weight in the original model with the square of Weight. And then compare the two models using the adjust $R^{2}$.
+
+```{R}
+plot(fitness$Oxygen_Consumption~fitness$Weight)
+plot(fitness$Oxygen_Consumption~fitness$Age)
+plot(fitness$Oxygen_Consumption~fitness$Run_Pulse)
+plot(fitness$Oxygen_Consumption~fitness$Performance)
+```
+
+
+* mod1 is the linear model and mod2 is the model with Weight to be a quadratic term.
+
+```{R}
+mod1 = lm(Oxygen_Consumption~Age+Run_Pulse+Performance+Weight, data=fitness); summary(mod1)
+
+fitness$Weight_sq = fitness$Weight^2
+mod2 = lm(Oxygen_Consumption~Age+Run_Pulse+Performance+Weight_sq, data=fitness); summary(mod2)
+```
+
+
+* Adjust $R^{2}$
+    + mod1: `r summary(mod1)$adj.r.squared`
+    + mod2: `r summary(mod2)$adj.r.squared`
+    
+* The two Adjust $R^{2}$ are very close, indicating that these two models have very similar performance.

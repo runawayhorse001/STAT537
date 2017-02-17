@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Ming Chen &amp; Wenqiang Feng" />
+
+
+<title>Homework #5</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">STAT 537: Statistics for Research I</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-gear"></span>
+     
+    Notes
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Chapter 1</li>
+    <li>
+      <a href="hw1.html">Note #1</a>
+    </li>
+    <li>
+      <a href="hw2.html">Note #2</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Chapter 2</li>
+    <li>
+      <a href="hw1.html">Note #3</a>
+    </li>
+    <li>
+      <a href="hw2.html">Note #4</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-gear"></span>
+     
+    Homework
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Week 1</li>
+    <li>
+      <a href="hw1.html">HW #1</a>
+    </li>
+    <li>
+      <a href="hw2.html">HW #2</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 2</li>
+    <li>
+      <a href="hw3.html">HW #3</a>
+    </li>
+    <li>
+      <a href="hw4.html">HW #4</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 3</li>
+    <li>
+      <a href="hw5.html">HW #5</a>
+    </li>
+    <li>
+      <a href="hw6.html">HW #6</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 4</li>
+    <li>
+      <a href="hw7.html">HW #7</a>
+    </li>
+    <li>
+      <a href="hw8.html">HW #8</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 5</li>
+    <li>
+      <a href="hw9.html">HW #9</a>
+    </li>
+    <li>
+      <a href="hw10.html">HW #10</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 6</li>
+    <li>
+      <a href="hw11.html">HW #11</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-gear"></span>
+     
+    Project
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Project 1</li>
+    <li>
+      <a href="project1.html">Project #1</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Project 2</li>
+    <li>
+      <a href="project2.html">Project #2</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="about.html">
+    <span class="fa fa-info"></span>
+     
+    About
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/runawayhorse001/STAT537">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://web.utk.edu/~wfeng1">
+    <span class="fa fa-question fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Homework #5</h1>
+<h4 class="author"><em>Ming Chen &amp; Wenqiang Feng</em></h4>
+<h4 class="date"><em>2/2/2017</em></h4>
+
+</div>
+
+
+<div id="you-can-also-get-the-pdf-format-of-wenqiangs-homework." class="section level2">
+<h2>You can also get the <a href="./pdf/HW5.pdf">PDF format</a> of Wenqiang’s Homework.</h2>
+</div>
+<div id="exercise-6.44" class="section level2">
+<h2>Exercise 6.44</h2>
+<ul>
+<li>(a). What are the populations of interest?
+<ul>
+<li>The plants of tobacco treated with two different fumigants</li>
+<li>The variable being studies is the number of parasites from the plants</li>
+</ul></li>
+<li>(b). Yes. The p-value is 2.089e-05, which is a strong evidence to indicate a difference in the mean level of parasites for the two fumigants.</li>
+</ul>
+<pre class="r"><code>F1 = c(77,40,11,31,28,50,53,26,33)
+F2 = c(76,38,10,29,27,48,51,24,32)
+
+t.test(F1, F2, paired = T, conf.level = 0.90)</code></pre>
+<pre><code>## 
+##  Paired t-test
+## 
+## data:  F1 and F2
+## t = 8.8544, df = 8, p-value = 2.089e-05
+## alternative hypothesis: true difference in means is not equal to 0
+## 90 percent confidence interval:
+##  1.228866 1.882245
+## sample estimates:
+## mean of the differences 
+##                1.555556</code></pre>
+<ul>
+<li>(c). the size of diference = 1.555556, 90% CI = [1.228866, 1.882245]</li>
+</ul>
+</div>
+<div id="exercise-6.46" class="section level2">
+<h2>Exercise 6.46</h2>
+<pre class="r"><code>abundance = c(5124,2904,3600,2880,2578,4146,1048,1336,394,7370,6762,744,1874,
+              3228,2032,3256,3816,2438,4897,1346,1676,2008,2224,1234,1598,2182)
+depth = c(rep(40, 13), rep(100, 13))
+oil_traj = c(rep(c(&quot;within&quot;, &quot;outside&quot;), c(7,6)), 
+             rep(c(&quot;within&quot;, &quot;outside&quot;), c(7,6)))
+pop_abundance = data.frame(abundance, as.factor(depth), oil_traj)</code></pre>
+<pre class="r"><code>library(dplyr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:gridExtra&#39;:
+## 
+##     combine</code></pre>
+<pre><code>## The following object is masked from &#39;package:MASS&#39;:
+## 
+##     select</code></pre>
+<pre><code>## The following objects are masked from &#39;package:plyr&#39;:
+## 
+##     arrange, count, desc, failwith, id, mutate, rename, summarise,
+##     summarize</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>within = filter(pop_abundance, oil_traj==&#39;within&#39;)$abundance
+outside = filter(pop_abundance, oil_traj==&#39;outside&#39;)$abundance</code></pre>
+<div id="exercise-6.46-a" class="section level3">
+<h3>Exercise 6.46 (a)</h3>
+<ul>
+<li>Since the variances between the two groups are very different, we use the separate variance t-test.
+<ul>
+<li><span class="math inline">\(Var_{within}\)</span> = <code>var(within)</code> = 1.419065210^{6}</li>
+<li><span class="math inline">\(Var_{outside}\)</span> = <code>var(outside)</code> = 4.966544310^{6}</li>
+</ul></li>
+<li>separate variance t-test
+<ul>
+<li><span class="math inline">\(H_{0}: \mu_{within} = \mu_{outside}\)</span> vs. <span class="math inline">\(H_{a}: \mu_{within} \neq \mu_{outside}\)</span></li>
+<li>P-value = 0.384 &gt; 0.05, fail to rejct the <span class="math inline">\(H_{0}\)</span></li>
+<li>Conclusion: no sufficient evidence to indicate a difference in average population abundance</li>
+</ul></li>
+</ul>
+<pre class="r"><code>t.test(within, outside, var.equal = FALSE)</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  within and outside
+## t = 0.89466, df = 16.224, p-value = 0.384
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -877.7749 2162.1558
+## sample estimates:
+## mean of x mean of y 
+##  3092.357  2450.167</code></pre>
+</div>
+<div id="exercise-6.46-b" class="section level3">
+<h3>Exercise 6.46 (b)</h3>
+<ul>
+<li>Size of the difference: 0</li>
+<li>95% CI: [-877.7749, 2162.1558]</li>
+</ul>
+</div>
+<div id="exercise-6.46-c" class="section level3">
+<h3>Exercise 6.46 (c)</h3>
+<ul>
+<li>Required conditions:
+<ul>
+<li><ol style="list-style-type: decimal">
+<li>independent samples</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li>two samples are approximately normally distributed</li>
+</ol></li>
+</ul></li>
+</ul>
+</div>
+<div id="exercise-6.46-d" class="section level3">
+<h3>Exercise 6.46 (d)</h3>
+<ul>
+<li>QQ plot shows that
+<ul>
+<li>the data from the within oil trajectory appears normally distributed</li>
+<li>the data from the outside oil trajectory is not normally distributed</li>
+</ul></li>
+</ul>
+<pre class="r"><code>par(mfcol=c(1,2))
+qqnorm(within, main=&quot;Within oil trajectory&quot;)
+qqline(within)
+
+qqnorm(outside, main=&quot;Outside oil trajectory&quot;)
+qqline(outside)</code></pre>
+<p><img src="hw5_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<ul>
+<li>Unequal variance
+<ul>
+<li>The two samples have unequal variances</li>
+<li>Outside oil trajectory data has larger variance</li>
+</ul></li>
+</ul>
+<pre class="r"><code>par(mfcol=c(1,1))
+boxplot(within, outside, names=c(&quot;within&quot;, &quot;outside&quot;))</code></pre>
+<p><img src="hw5_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+</div>
+<div id="exercise-7.25a" class="section level2">
+<h2>Exercise 7.25(a)</h2>
+<ul>
+<li>Data input</li>
+</ul>
+<pre class="r"><code>portfolio1 = c(130,135,135,131,129,135,126,136,127,132)
+portfolio2 = c(154,144,147,150,155,153,149,139,140,141)
+sd(portfolio1)^2</code></pre>
+<pre><code>## [1] 12.93333</code></pre>
+<ul>
+<li>Levene test
+<ul>
+<li>The p-value = 0.07724 &gt; 0.05 from the levene test below indicates that we failed to reject the <span class="math inline">\(H_{0}\)</span> hypothesis. There is no strong evidence to support that portfolio 2 has higher risk than portfolio 1.</li>
+</ul></li>
+</ul>
+<pre class="r"><code>library(car)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;car&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     recode</code></pre>
+<pre><code>## The following objects are masked from &#39;package:HH&#39;:
+## 
+##     logit, vif</code></pre>
+<pre class="r"><code>dt = data.frame(y=c(portfolio1, portfolio2), 
+                group=rep(c(&quot;1&quot;, &quot;2&quot;), c(length(portfolio1), length(portfolio2))))
+leveneTest(y~group, dt)</code></pre>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##       Df F value  Pr(&gt;F)  
+## group  1  3.5122 0.07724 .
+##       18                  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="exercise-7.26" class="section level2">
+<h2>Exercise 7.26</h2>
+<ul>
+<li>Tests for two population variances
+<ul>
+<li>$H_{0}: two variances are eqaul vs. H_{a}: two varainces are not equal</li>
+<li>P-value = 0.1485 &gt; 0.05, fail to rejct <span class="math inline">\(H_{O}\)</span>.</li>
+<li>Conclusion: the two variances are equal</li>
+</ul></li>
+</ul>
+<pre class="r"><code>var.test(portfolio1, portfolio2)</code></pre>
+<pre><code>## 
+##  F test to compare two variances
+## 
+## data:  portfolio1 and portfolio2
+## F = 0.36421, num df = 9, denom df = 9, p-value = 0.1485
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  0.09046343 1.46628824
+## sample estimates:
+## ratio of variances 
+##          0.3642053</code></pre>
+<ul>
+<li>Tests for normality
+<ul>
+<li>QQ plots show that the two samples are approximately normally distributed.</li>
+</ul></li>
+</ul>
+<pre class="r"><code>par(mfcol=c(1,2))
+qqnorm(portfolio1, main = &quot;Portfolio 1&quot;)
+qqline(portfolio1)
+
+qqnorm(portfolio2, main = &quot;Portfolio 2&quot;)
+qqline(portfolio2)</code></pre>
+<p><img src="hw5_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<pre class="r"><code>par(mfcol=c(1,1))</code></pre>
+<ul>
+<li><p><strong>Since the two samples are randomly selected, normally distributed and have equal variance, I choose the pooled variance t-test to detect if there is any differences in the average returns for the two portfolios.</strong></p>
+<ul>
+<li><span class="math inline">\(H_{0}: \mu_{1} = \mu_{2}\)</span> vs. <span class="math inline">\(H_{a}: \mu_{1} \neq \mu_{2}\)</span></li>
+<li>P-value = 1.314e-06 &lt; 0.0001, reject <span class="math inline">\(H_{0}\)</span></li>
+<li>Conclusion: there is strong evidence that a difference in the mean returns of the two portfolios exits.</li>
+</ul></li>
+</ul>
+<pre class="r"><code>t.test(portfolio1, portfolio2, var.equal = T)</code></pre>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  portfolio1 and portfolio2
+## t = -7.0877, df = 18, p-value = 1.314e-06
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -20.22415 -10.97585
+## sample estimates:
+## mean of x mean of y 
+##     131.6     147.2</code></pre>
+</div>
+
+<center>Copyright &copy; 2017 Ming Chen  & Wenqiang Feng. All rights reserved.</center>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -203,10 +203,10 @@ $(document).ready(function () {
     <li class="divider"></li>
     <li class="dropdown-header">Chapter 2</li>
     <li>
-      <a href="projtct1.html">Note #3</a>
+      <a href="hw1.html">Note #3</a>
     </li>
     <li>
-      <a href="project2.html">Note #4</a>
+      <a href="hw2.html">Note #4</a>
     </li>
   </ul>
 </li>
@@ -219,7 +219,7 @@ $(document).ready(function () {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Chapter 1</li>
+    <li class="dropdown-header">Week 1</li>
     <li>
       <a href="hw1.html">HW #1</a>
     </li>
@@ -227,12 +227,41 @@ $(document).ready(function () {
       <a href="hw2.html">HW #2</a>
     </li>
     <li class="divider"></li>
-    <li class="dropdown-header">Chapter 2</li>
+    <li class="dropdown-header">Week 2</li>
     <li>
-      <a href="hw1.html">HW #3</a>
+      <a href="hw3.html">HW #3</a>
     </li>
     <li>
-      <a href="project2.html">HW #4</a>
+      <a href="hw4.html">HW #4</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 3</li>
+    <li>
+      <a href="hw5.html">HW #5</a>
+    </li>
+    <li>
+      <a href="hw6.html">HW #6</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 4</li>
+    <li>
+      <a href="hw7.html">HW #7</a>
+    </li>
+    <li>
+      <a href="hw8.html">HW #8</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 5</li>
+    <li>
+      <a href="hw9.html">HW #9</a>
+    </li>
+    <li>
+      <a href="hw10.html">HW #10</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 6</li>
+    <li>
+      <a href="hw11.html">HW #11</a>
     </li>
   </ul>
 </li>
@@ -293,24 +322,469 @@ $(document).ready(function () {
 </div>
 
 
-<div id="r-markdown" class="section level2">
-<h2>R Markdown</h2>
-<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
-<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
-<pre class="r"><code>summary(cars)</code></pre>
-<pre><code>##      speed           dist       
-##  Min.   : 4.0   Min.   :  2.00  
-##  1st Qu.:12.0   1st Qu.: 26.00  
-##  Median :15.0   Median : 36.00  
-##  Mean   :15.4   Mean   : 42.98  
-##  3rd Qu.:19.0   3rd Qu.: 56.00  
-##  Max.   :25.0   Max.   :120.00</code></pre>
+<div id="you-can-also-get-the-pdf-format-of-wenqiangs-project." class="section level2">
+<h2>You can also get the <a href="./pdf/final.pdf">PDF format</a> of Wenqiang’s Project.</h2>
+<pre class="r"><code>library(readxl)
+ads = read_excel(&quot;./data/Ads.xlsx&quot;)
+ads$ad = as.factor(ads$ad)
+fitness = read_excel(&quot;./data/Fitness.xlsx&quot;)
+fitness$Gender = as.factor(fitness$Gender)</code></pre>
 </div>
-<div id="including-plots" class="section level2">
-<h2>Including Plots</h2>
-<p>You can also embed plots, for example:</p>
-<p><img src="project2_files/figure-html/pressure-1.png" width="672" /></p>
-<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
+<div id="problem-1" class="section level2">
+<h2>Problem 1</h2>
+<div id="a.-analysis-of-variance" class="section level4">
+<h4>a. Analysis of Variance</h4>
+<pre class="r"><code>ads.lm = lm(sales~ad, data=ads)
+anova(ads.lm)</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: sales
+##            Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+## ad          3  5866.1 1955.36  13.483 8.849e-08 ***
+## Residuals 140 20303.2  145.02                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code>pval=anova(ads.lm)$`Pr(&gt;F)`[1];pval</code></pre>
+<pre><code>## [1] 8.849476e-08</code></pre>
+<ul>
+<li><strong>Conclusions</strong>: the p value is 8.84947639620973e-08, we therefore reject the <span class="math inline">\(H_{0}\)</span>. There is a strong evidence that the average sales among the 4 groups are significantly different.</li>
+</ul>
+</div>
+<div id="b.-lvenes-test" class="section level4">
+<h4>b. Lvene’s test</h4>
+<pre class="r"><code>library(car)
+leveneTest(sales~ad, data=ads)</code></pre>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##        Df F value Pr(&gt;F)
+## group   3  0.8271  0.481
+##       140</code></pre>
+<pre class="r"><code>pval=leveneTest(sales~ad, data=ads)$`Pr(&gt;F)`[1]; pval</code></pre>
+<pre><code>## [1] 0.4810325</code></pre>
+<ul>
+<li><strong>Conclusions</strong>: Result from the Levene’s test (p value = 0.4810325) indicates that the variances in the 4 groups are equal.</li>
+</ul>
+</div>
+<div id="c.-check-if-the-residuals-are-modeled-well-by-a-normal-distribution" class="section level4">
+<h4>c. check if the residuals are modeled well by a normal distribution</h4>
+<pre class="r"><code>par(mfrow=c(1,2))
+plot(ads.lm, which=2)
+plot(ads.lm, which=3)</code></pre>
+<p><img src="project2_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r"><code>par(mfrow=c(1,1))</code></pre>
+<pre class="r"><code>shapiro.test(ads.lm$residuals)</code></pre>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  ads.lm$residuals
+## W = 0.99173, p-value = 0.5663</code></pre>
+<pre class="r"><code>pval=shapiro.test(ads.lm$residuals)$p.value; pval</code></pre>
+<pre><code>## [1] 0.5663145</code></pre>
+<ul>
+<li><strong>Conclusion:</strong> Yes. From the normal QQ plot, we can see that most of the points are located on the line. And the squared root of standardized residuals is independent from the fitted values. The pval from the shapiro test for the residuals is 0.5663145, indicating a normal distribution.</li>
+</ul>
+</div>
+<div id="d.-tukeys-hsd-procedure" class="section level4">
+<h4>d. Tukey’s HSD procedure</h4>
+<pre class="r"><code>ads.aov = aov(sales~ad, data=ads)
+TukeyHSD(ads.aov, ordered = T)</code></pre>
+<pre><code>##   Tukey multiple comparisons of means
+##     95% family-wise confidence level
+##     factor levels have been ordered
+## 
+## Fit: aov(formula = sales ~ ad, data = ads)
+## 
+## $ad
+##                     diff        lwr       upr     p adj
+## people-display 10.055556  2.6751252 17.435986 0.0029955
+## radio-display  14.333333  6.9529029 21.713764 0.0000080
+## paper-display  16.666667  9.2862363 24.047097 0.0000002
+## radio-people    4.277778 -3.1026526 11.658208 0.4360116
+## paper-people    6.611111 -0.7693193 13.991542 0.0963573
+## paper-radio     2.333333 -5.0470971  9.713764 0.8439578</code></pre>
+<ul>
+<li><p><strong>Conclusions</strong>: given a 95% confidence level, the mean sales between</p>
+<ul>
+<li>people and display</li>
+<li>radio and display</li>
+<li>paper and display</li>
+</ul></li>
+</ul>
+<p>are significantly different. Among the three groups, <em>people</em> has the largest average while <em>display</em> has the smallest average.</p>
+</div>
+<div id="e.-analysis-of-variance-on-the-rank" class="section level4">
+<h4>e. analysis of variance on the rank</h4>
+<pre class="r"><code>ads.kruskal.wallis = kruskal.test(sales~ad, data=ads); ads.kruskal.wallis</code></pre>
+<pre><code>## 
+##  Kruskal-Wallis rank sum test
+## 
+## data:  sales by ad
+## Kruskal-Wallis chi-squared = 33.642, df = 3, p-value = 2.358e-07</code></pre>
+<pre class="r"><code>pval=ads.kruskal.wallis$p.value; pval</code></pre>
+<pre><code>## [1] 2.357644e-07</code></pre>
+<ul>
+<li><strong>Conclusions</strong>: the p value from the Kruskal Wallis test is 2.3576441977402e-07, indicating that at least two of the four groups are significantly different in the average sales. From the Levene’s test in part (b), we know that the variances in the 4 groups are equal, so the application of Kruskal Wallis is appropriate here.</li>
+</ul>
+</div>
+<div id="f.-tukeys-hsd-procedure-on-the-ranks" class="section level4">
+<h4>f. Tukey’s HSD procedure on the ranks</h4>
+<pre class="r"><code>library(&#39;PMCMR&#39;)
+summary(posthoc.kruskal.nemenyi.test(ads$sales, ads$ad, dist = &quot;Tukey&quot;))</code></pre>
+<pre><code>## 
+##  Pairwise comparisons using Tukey and Kramer (Nemenyi) test  
+##                    with Tukey-Dist approximation for independent samples 
+## 
+## data:  ads$sales and ads$ad 
+## 
+## 
+## P value adjustment method: none 
+##                   H0 statistic p.value
+## 1  display  =  paper  7.649437 3.8e-07
+## 2 display  =  people  4.844577  0.0034
+## 3  display  =  radio  6.372866 3.9e-05
+## 4   paper  =  people  2.804860  0.1942
+## 5    paper  =  radio  1.276571  0.8034
+## 6   people  =  radio  1.528289  0.7014</code></pre>
+<ul>
+<li><p><strong>Conclusions</strong>: results from the multiple comparisons of rank sums indicate that, the following pairs of groups are significantly different in average sales:</p>
+<ul>
+<li>paper-display</li>
+<li>people-display</li>
+<li>radio-display</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="problem-2" class="section level2">
+<h2>Problem 2</h2>
+<div id="a.-fit-the-model-with-all-predictors" class="section level4">
+<h4>a. fit the model with all predictors</h4>
+<div id="assumptions-of-the-regression-model" class="section level5">
+<h5>1. Assumptions of the regression model</h5>
+<ul>
+<li>Assumptions:</li>
+<li>the relationship between predictors and reponse variable is linear</li>
+<li>all variables are multivariate normal</li>
+<li>homoscedasticity: the error terms along the regression are equal.</li>
+<li>there is little or no multicollinearity</li>
+<li>little or no autocorrelation</li>
+</ul>
+<pre class="r"><code>fitness.lm = lm(Oxygen_Consumption~Runtime+Age+Weight+Run_Pulse+
+                  Rest_Pulse+Maximum_Pulse+Performance, data=fitness)
+summary(fitness.lm)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Oxygen_Consumption ~ Runtime + Age + Weight + Run_Pulse + 
+##     Rest_Pulse + Maximum_Pulse + Performance, data = fitness)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.4357 -0.8278 -0.0270  1.0324  5.4787 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept)   93.33753   36.49782   2.557  0.01761 * 
+## Runtime       -2.08804    2.22856  -0.937  0.35852   
+## Age           -0.21066    0.10519  -2.003  0.05713 . 
+## Weight        -0.07741    0.05681  -1.363  0.18623   
+## Run_Pulse     -0.36618    0.12299  -2.977  0.00674 **
+## Rest_Pulse    -0.01389    0.07114  -0.195  0.84694   
+## Maximum_Pulse  0.30490    0.13990   2.179  0.03979 * 
+## Performance    0.25756    1.02373   0.252  0.80359   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.373 on 23 degrees of freedom
+## Multiple R-squared:  0.8479, Adjusted R-squared:  0.8016 
+## F-statistic: 18.32 on 7 and 23 DF,  p-value: 5.171e-08</code></pre>
+<ul>
+<li>Residuals vs predictors plots</li>
+</ul>
+<pre class="r"><code>res = fitness.lm$residuals
+n = colnames(fitness)[-c(1:3, 6)]
+fitness$Residuals = res
+##plot(Residuals~as.numeric(Gender), data=fitness, xlab=&quot;Gender: 1=Female; 2=Male&quot;)
+plot(Residuals~Runtime, data=fitness, xlab=&quot;Runtime&quot;)</code></pre>
+<p><img src="project2_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<pre class="r"><code>plot(Residuals~Age, data=fitness, xlab=&quot;Age&quot;)</code></pre>
+<p><img src="project2_files/figure-html/unnamed-chunk-10-2.png" width="672" /></p>
+<pre class="r"><code>plot(Residuals~Weight, data=fitness, xlab=&quot;Weight&quot;)</code></pre>
+<p><img src="project2_files/figure-html/unnamed-chunk-10-3.png" width="672" /></p>
+<pre class="r"><code>plot(Residuals~Run_Pulse, data=fitness, xlab=&quot;Run Pulse&quot;)</code></pre>
+<p><img src="project2_files/figure-html/unnamed-chunk-10-4.png" width="672" /></p>
+<pre class="r"><code>plot(Residuals~Rest_Pulse, data=fitness, xlab=&quot;Rest Pulse&quot;)</code></pre>
+<p><img src="project2_files/figure-html/unnamed-chunk-10-5.png" width="672" /></p>
+<pre class="r"><code>plot(Residuals~Maximum_Pulse, data=fitness, xlab=&quot;Maximum Pulse&quot;)</code></pre>
+<p><img src="project2_files/figure-html/unnamed-chunk-10-6.png" width="672" /></p>
+<pre class="r"><code>plot(Residuals~Performance, data=fitness)</code></pre>
+<p><img src="project2_files/figure-html/unnamed-chunk-10-7.png" width="672" /></p>
+<ul>
+<li>Residuals vs fitted values</li>
+</ul>
+<pre class="r"><code>plot(fitness.lm, which=1)</code></pre>
+<p><img src="project2_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<ul>
+<li><strong>Conclusions</strong>: the residuals appear to be randomly scattered around zero for all plots with predictors and fitted value. And the vertical width of the scatters seems independent of the predictor or fitted values. From the plots, it’s reasonable to assume that the error terms have a mean of zero and the variance is constant. So assumptions in our regression module are satisfied.</li>
+</ul>
+</div>
+<div id="studendized-residuals-and-cooks-d-against-the-observation-number" class="section level5">
+<h5>2. studendized residuals and Cook’s D against the observation number</h5>
+<pre class="r"><code>rstudentVal = rstudent(fitness.lm)
+plot(rstudentVal~c(1:length(rstudentVal)), xlab=&quot;Observation number&quot;, ylab=&quot;Studendized residuals&quot;)
+abline(h=0, col=&quot;blue&quot;, lty=3)</code></pre>
+<p><img src="project2_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<ul>
+<li>Cook’s distance against the observation number.</li>
+</ul>
+<pre class="r"><code>plot(fitness.lm, which=4)
+abline(h=4/31, col=&quot;blue&quot;, lty=3)</code></pre>
+<p><img src="project2_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<pre class="r"><code>sorted_D = sort(cooks.distance(fitness.lm))
+data.frame(obs_ID = names(sorted_D), cooks_D = sorted_D)</code></pre>
+<pre><code>##    obs_ID      cooks_D
+## 18     18 5.765037e-08
+## 4       4 1.068840e-05
+## 28     28 2.654757e-05
+## 31     31 7.213529e-05
+## 24     24 2.274227e-04
+## 21     21 3.700198e-04
+## 7       7 4.022192e-04
+## 9       9 5.017736e-04
+## 29     29 5.664852e-04
+## 14     14 8.766836e-04
+## 19     19 9.808297e-04
+## 16     16 3.006708e-03
+## 30     30 3.916771e-03
+## 23     23 4.848092e-03
+## 22     22 7.682072e-03
+## 27     27 7.983004e-03
+## 26     26 8.510727e-03
+## 17     17 1.046166e-02
+## 10     10 1.557731e-02
+## 25     25 1.618946e-02
+## 13     13 3.073773e-02
+## 8       8 3.478732e-02
+## 6       6 3.529342e-02
+## 5       5 4.307975e-02
+## 3       3 5.154157e-02
+## 20     20 6.333362e-02
+## 11     11 6.424308e-02
+## 1       1 1.013559e-01
+## 12     12 1.172345e-01
+## 15     15 1.724050e-01
+## 2       2 1.833781e-01</code></pre>
+<ul>
+<li>Conclusions:
+<ul>
+<li>Based on the Cook’s distance, observations 2 and 15 are larger than the value 4/31 = 0.1290323, and therefore, are potential influential observations.</li>
+</ul></li>
+<li>Remove observation 2 and 15 and refit the model</li>
+</ul>
+</div>
+</div>
+<div id="b.-stepwise-regression" class="section level4">
+<h4>b. stepwise regression</h4>
+<pre class="r"><code>fitness = fitness[-c(2,15), ]
+fitness.lm = lm(Oxygen_Consumption~Runtime+Age+Weight+Run_Pulse+
+                  Rest_Pulse+Maximum_Pulse+Performance, data=fitness)
+summary(fitness.lm)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Oxygen_Consumption ~ Runtime + Age + Weight + Run_Pulse + 
+##     Rest_Pulse + Maximum_Pulse + Performance, data = fitness)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.2904 -0.7190  0.1309  0.9909  2.8810 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)   87.2013149 33.1709047   2.629   0.0157 *
+## Runtime       -1.1246246  2.0346292  -0.553   0.5863  
+## Age           -0.2514006  0.0929240  -2.705   0.0132 *
+## Weight        -0.1070596  0.0510055  -2.099   0.0481 *
+## Run_Pulse     -0.2870006  0.1306146  -2.197   0.0394 *
+## Rest_Pulse     0.0003888  0.0615322   0.006   0.9950  
+## Maximum_Pulse  0.2050578  0.1533982   1.337   0.1956  
+## Performance    0.6348160  0.9350117   0.679   0.5046  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.047 on 21 degrees of freedom
+## Multiple R-squared:  0.8668, Adjusted R-squared:  0.8224 
+## F-statistic: 19.52 on 7 and 21 DF,  p-value: 7.318e-08</code></pre>
+<pre class="r"><code>stepwiseFit = step(fitness.lm, direction = &quot;both&quot;, test=&quot;F&quot;)</code></pre>
+<pre><code>## Start:  AIC=48.19
+## Oxygen_Consumption ~ Runtime + Age + Weight + Run_Pulse + Rest_Pulse + 
+##     Maximum_Pulse + Performance
+## 
+##                 Df Sum of Sq     RSS    AIC F value  Pr(&gt;F)  
+## - Rest_Pulse     1    0.0002  87.990 46.188  0.0000 0.99502  
+## - Runtime        1    1.2801  89.270 46.607  0.3055 0.58628  
+## - Performance    1    1.9314  89.921 46.817  0.4610 0.50459  
+## &lt;none&gt;                        87.990 48.188                  
+## - Maximum_Pulse  1    7.4873  95.477 48.556  1.7869 0.19560  
+## - Weight         1   18.4599 106.450 51.711  4.4057 0.04809 *
+## - Run_Pulse      1   20.2299 108.220 52.189  4.8282 0.03936 *
+## - Age            1   30.6683 118.658 54.860  7.3194 0.01325 *
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Step:  AIC=46.19
+## Oxygen_Consumption ~ Runtime + Age + Weight + Run_Pulse + Maximum_Pulse + 
+##     Performance
+## 
+##                 Df Sum of Sq     RSS    AIC F value   Pr(&gt;F)   
+## - Runtime        1     1.365  89.355 44.634  0.3412 0.565075   
+## - Performance    1     2.123  90.112 44.879  0.5307 0.473988   
+## &lt;none&gt;                        87.990 46.188                    
+## - Maximum_Pulse  1     7.489  95.479 46.557  1.8724 0.185013   
+## + Rest_Pulse     1     0.000  87.990 48.188  0.0000 0.995018   
+## - Weight         1    18.479 106.469 49.716  4.6203 0.042854 * 
+## - Run_Pulse      1    20.292 108.282 50.206  5.0735 0.034605 * 
+## - Age            1    33.139 121.128 53.457  8.2856 0.008726 **
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Step:  AIC=44.63
+## Oxygen_Consumption ~ Age + Weight + Run_Pulse + Maximum_Pulse + 
+##     Performance
+## 
+##                 Df Sum of Sq    RSS    AIC F value    Pr(&gt;F)    
+## &lt;none&gt;                        89.35 44.634                      
+## - Maximum_Pulse  1     8.740  98.09 45.340  2.2496  0.147251    
+## + Runtime        1     1.365  87.99 46.188  0.3412  0.565075    
+## + Rest_Pulse     1     0.085  89.27 46.607  0.0209  0.886435    
+## - Run_Pulse      1    21.925 111.28 48.998  5.6436  0.026234 *  
+## - Weight         1    23.366 112.72 49.371  6.0145  0.022196 *  
+## - Age            1    32.248 121.60 51.570  8.3007  0.008434 ** 
+## - Performance    1   272.351 361.71 83.183 70.1037 1.946e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code>fitnessBest = lm(Oxygen_Consumption~Age+Maximum_Pulse+Run_Pulse+Performance+Weight, data=fitness); summary(fitnessBest)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Oxygen_Consumption ~ Age + Maximum_Pulse + Run_Pulse + 
+##     Performance + Weight, data = fitness)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.2702 -0.4813  0.1618  1.0850  2.8235 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   70.92492   11.88678   5.967 4.39e-06 ***
+## Age           -0.24728    0.08583  -2.881  0.00843 ** 
+## Maximum_Pulse  0.21876    0.14585   1.500  0.14725    
+## Run_Pulse     -0.29604    0.12462  -2.376  0.02623 *  
+## Performance    1.13415    0.13546   8.373 1.95e-08 ***
+## Weight        -0.11538    0.04705  -2.452  0.02220 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.971 on 23 degrees of freedom
+## Multiple R-squared:  0.8647, Adjusted R-squared:  0.8353 
+## F-statistic:  29.4 on 5 and 23 DF,  p-value: 2.865e-09</code></pre>
+<pre class="r"><code>coefs = coefficients(fitnessBest); coefs</code></pre>
+<pre><code>##   (Intercept)           Age Maximum_Pulse     Run_Pulse   Performance 
+##    70.9249219    -0.2472849     0.2187632    -0.2960445     1.1341481 
+##        Weight 
+##    -0.1153811</code></pre>
+<ul>
+<li>According to the AIC criterion, there are five important variables:
+<ul>
+<li>Maximum_Pulse</li>
+<li>Age</li>
+<li>Weight</li>
+<li>Run_Pulse</li>
+<li>Performance</li>
+</ul></li>
+<li><p>Accroding to the 0.15 significance entry level criterion, there are four important variables:</p>
+<ul>
+<li>Run_Pulse</li>
+<li>Weight</li>
+<li>Age</li>
+<li>Performance</li>
+</ul></li>
+<li>Refit the model with the five important variables. Given a 5% significant level, four of the five variables are identified as significant:
+<ul>
+<li>Age</li>
+<li>Run_Pulse</li>
+<li>Performance</li>
+<li>Weight</li>
+</ul></li>
+</ul>
+<p>Intepretation: Performance has significantly positive effect on the oxygen consumption, while the other three variables have significantly negative effect on the oxygen consumption.</p>
+</div>
+<div id="c.-are-there-any-other-models-perform-nearly-as-well" class="section level4">
+<h4>c. are there any other models perform nearly as well?</h4>
+<p>By plotting the Oxygen_Consumption against the four variables that are identified as significant, I found that the relationship between Oxygen_Consumption and Weight are not linear. It appears to be a quadratic. So I replace Weight in the original model with the square of Weight. And then compare the two models using the adjust <span class="math inline">\(R^{2}\)</span>.</p>
+<pre class="r"><code>plot(fitness$Oxygen_Consumption~fitness$Weight)</code></pre>
+<p><img src="project2_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<pre class="r"><code>plot(fitness$Oxygen_Consumption~fitness$Age)</code></pre>
+<p><img src="project2_files/figure-html/unnamed-chunk-15-2.png" width="672" /></p>
+<pre class="r"><code>plot(fitness$Oxygen_Consumption~fitness$Run_Pulse)</code></pre>
+<p><img src="project2_files/figure-html/unnamed-chunk-15-3.png" width="672" /></p>
+<pre class="r"><code>plot(fitness$Oxygen_Consumption~fitness$Performance)</code></pre>
+<p><img src="project2_files/figure-html/unnamed-chunk-15-4.png" width="672" /></p>
+<ul>
+<li>mod1 is the linear model and mod2 is the model with Weight to be a quadratic term.</li>
+</ul>
+<pre class="r"><code>mod1 = lm(Oxygen_Consumption~Age+Run_Pulse+Performance+Weight, data=fitness); summary(mod1)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Oxygen_Consumption ~ Age + Run_Pulse + Performance + 
+##     Weight, data = fitness)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.1425 -0.7220  0.4503  1.4752  2.9290 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 78.65873   10.98546   7.160 2.12e-07 ***
+## Age         -0.26246    0.08742  -3.002  0.00617 ** 
+## Run_Pulse   -0.11943    0.04184  -2.854  0.00875 ** 
+## Performance  1.12941    0.13890   8.131 2.36e-08 ***
+## Weight      -0.10242    0.04744  -2.159  0.04105 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.022 on 24 degrees of freedom
+## Multiple R-squared:  0.8515, Adjusted R-squared:  0.8267 
+## F-statistic:  34.4 on 4 and 24 DF,  p-value: 1.292e-09</code></pre>
+<pre class="r"><code>fitness$Weight_sq = fitness$Weight^2
+mod2 = lm(Oxygen_Consumption~Age+Run_Pulse+Performance+Weight_sq, data=fitness); summary(mod2)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Oxygen_Consumption ~ Age + Run_Pulse + Performance + 
+##     Weight_sq, data = fitness)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.1518 -0.6890  0.5621  1.4264  2.9571 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 74.9576099 10.4198506   7.194 1.96e-07 ***
+## Age         -0.2617283  0.0875526  -2.989  0.00636 ** 
+## Run_Pulse   -0.1209272  0.0418975  -2.886  0.00812 ** 
+## Performance  1.1270674  0.1393721   8.087 2.61e-08 ***
+## Weight_sq   -0.0006582  0.0003084  -2.134  0.04322 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.025 on 24 degrees of freedom
+## Multiple R-squared:  0.8509, Adjusted R-squared:  0.8261 
+## F-statistic: 34.25 on 4 and 24 DF,  p-value: 1.35e-09</code></pre>
+<ul>
+<li>Adjust <span class="math inline">\(R^{2}\)</span>
+<ul>
+<li>mod1: 0.8267311</li>
+<li>mod2: 0.8260861</li>
+</ul></li>
+<li>The two Adjust <span class="math inline">\(R^{2}\)</span> are very close, indicating that these two models have very similar performance.</li>
+</ul>
+</div>
 </div>
 
 <center>Copyright &copy; 2017 Ming Chen  & Wenqiang Feng. All rights reserved.</center>

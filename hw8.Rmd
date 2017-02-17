@@ -1,0 +1,66 @@
+---
+title: "Homework #8"
+author: "Ming Chen & Wenqiang Feng"
+date: "2/2/2017"
+output: html_document
+---
+
+## You can also get the [PDF format](./pdf/HW8.pdf) of Wenqiang's Homework.
+
+## Load data
+
+```{R}
+uri = paste0("./data/ex8-32.TXT")
+hw8data = read.table(uri, header = T)
+attach(hw8data)
+hw8data=data.frame(value=c(A,B,C,D), group=rep(LETTERS[1:4], each=length(A)))
+```
+
+### Analysis
+
+* (1). Hypothesis test
+    + P value = 5.85e-05, reject $H_{0}$
+    + Conclusion: not all means are equal among the four groups.
+
+```{R}
+hw8data.aov = aov(value~group, hw8data)
+summary(hw8data.aov)
+```
+
+
+* (2). Levene's test
+    + P value = 0.6428
+    + The assumption of homegeneity of variance among the four groups is appropriate.
+    
+```{R warning=F, message=F}
+library(car)
+leveneTest(value~group, data=hw8data)
+```
+
+* (3). Check residuals
+
+The normal QQ plot indicates a normal distribution fits the residuals well.
+
+```{R}
+plot(hw8data.aov, which=2)
+```
+
+* (4). Significantly different groups based on Tukey's HSD test
+    + A-B, A-C, B-D, B-D
+    + Group C has the highest average; Group D has the lowest average.
+    + No significant difference between group A and D
+    + No significant difference between group B and C
+  
+
+```{R}
+TukeyHSD(hw8data.aov)
+plot(value~group, data=hw8data)
+```
+
+* (5). Kruskal-Wallis test
+    + P value = 0.0008698
+    + Conclusion: at least two of these four groups have different distributions.
+    
+```{R}
+kruskal.test(value~group, data=hw8data)
+```

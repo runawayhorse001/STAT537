@@ -1,0 +1,106 @@
+---
+title: "Homework #10"
+author: "Ming Chen & Wenqiang Feng"
+date: "2/2/2017"
+output: html_document
+---
+
+## You can also get the [PDF format](./pdf/HW10.pdf) of Wenqiang's Homework.
+
+## Data preparation for problem 12.45
+
+```{R}
+hw10data = read.table("./data/ex12-45.TXT", header = T)
+aggLevel = hw10data[1:12, 1]
+race = as.factor(hw10data[1:12, 2])
+race = relevel(race, ref="White")
+deathYes = hw10data[1:12, 4]
+deathNo = hw10data[13:24, 4]
+hw10dataNew = data.frame(aggLevel, race, deathYes, deathNo); hw10dataNew
+```
+
+
+
+#### problem a
+
+```{R}
+hw10data = read.table("./data/ex12-45.TXT", header = T)
+aggLevel = as.factor(hw10data[1:12, 1])
+race = as.factor(hw10data[1:12, 2])
+race = relevel(race, ref="White")
+deathYes = hw10data[1:12, 4]
+deathNo = hw10data[13:24, 4]
+mod = glm(cbind(deathYes, deathNo)~1+aggLevel+race, family = binomial(link = "logit"))
+summary(mod)
+```
+
+Set aggravation level 1 as the reference level, then the odds ratio for the other five levels are:
+
+* aggravation level 2: $e^{\beta_{agglevel2}}$ = `r coef(mod)['aggLevel2']`
+* aggravation level 3: $e^{\beta_{agglevel3}}$ = `r coef(mod)['aggLevel3']`
+* aggravation level 4: $e^{\beta_{agglevel4}}$ = `r coef(mod)['aggLevel4']`
+* aggravation level 5: $e^{\beta_{agglevel5}}$ = `r coef(mod)['aggLevel5']`
+* aggravation level 6: $e^{\beta_{agglevel6}}$ = `r coef(mod)['aggLevel6']`
+
+
+#### problem b
+
+
+```{R}
+hw10data = read.table("./data/ex12-45.TXT", header = T)
+aggLevel = hw10data[1:12, 1]
+race = as.factor(hw10data[1:12, 2])
+race = relevel(race, ref="White")
+deathYes = hw10data[1:12, 4]
+deathNo = hw10data[13:24, 4]
+mod = glm(cbind(deathYes, deathNo)~1+aggLevel+race, family = binomial(link = "logit"))
+summary(mod)
+beta0 = coef(mod)['(Intercept)']
+betaAggLevel = coef(mod)['aggLevel'] 
+betaRace = coef(mod)['raceBlack']
+```
+
+Model: $logit(\hat{\pi})$ = `r beta0` + `r betaAggLevel`\*(aggLevel)  `r betaRace`\*(race=black) 
+
+
+#### problem c
+
+```{R}
+pVal = coef(summary(mod))['aggLevel', 'Pr(>|z|)']; pVal
+```
+
+Yes. p-value = 1.64349e-16, indicating a strong evidence of association between the severity of the crime and the probability of receiving the death penalty.
+
+#### problem d
+
+```{R}
+dataBlack = hw10dataNew[race=="Black", ]
+modBlack = glm(cbind(deathYes, deathNo)~aggLevel, family = binomial(link = "logit"), data=dataBlack)
+summary(modBlack)
+
+dataWhite = hw10dataNew[race=="White", ]
+modWhite = glm(cbind(deathYes, deathNo)~aggLevel, family = binomial(link = "logit"), data=dataWhite)
+summary(modWhite)
+```
+
+* The severity of the crime has a significant effect on the probability of receiving the death penalty in both races. 
+* The severity of the crime is positively associated with the probability of receiving the death penalty for both the black and the white. 
+* The effect in the race of black (`r coef(modBlack)['aggLevel']`) is slightly lower than the effect in the race of white (`r coef(modWhite)['aggLevel']`).
+
+#### problem e
+
+```{R, warning=F, message=F}
+library(HH)
+#black_y = predict(modBlack, data.frame(aggLevel=3), type="response"); black_y
+black_CI = interval(modBlack, newdata=data.frame(aggLevel=3), type="response"); black_CI
+# white_y = predict(modWhite, data.frame(aggLevel=3), type="response"); white_y
+white_CI = interval(modWhite, newdata=data.frame(aggLevel=3), type="response"); white_CI
+```
+
+* Black victim
+    + $\hat{\pi}$ = `r black_CI[, 'fit']`
+    + 95% CI = [`r black_CI[, c(4,5)]`]
+    
+* White victim
+    + $\hat{\pi}$ = `r white_CI[, 'fit']`
+    + 95% CI = [`r white_CI[, c(4,5)]`]

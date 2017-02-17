@@ -4,28 +4,170 @@ author: "Ming Chen & Wenqiang Feng"
 date: "2/2/2017"
 output: html_document
 ---
+## You can also get the [PDF format](./pdf/HW1.pdf) of Wenqiang's Homework.
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+#### Required library
+```{R message=F,warning=F}
+library(histogram)
+library(plyr)
+```
+#### Load data
+```{R message=F,warning=F}
+homeownership = read.table("./data/ex3-11.TXT", header = T)
+hiv = read.table("./data/ex3-76.TXT", header = T)
 ```
 
-## R Markdown
-
-this is test
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+## Q 3.11(a)
+```{R}
+## X1985
+par(mfrow=c(3,1))
+hist(homeownership$X1985, freq = F, right = F, ylim = c(0, 0.12), 
+     xlim = c(30, 100), xlab = "1985", ylab = "Relative Frequency", 
+     main = "", breaks = 20)
+## X1996
+hist(homeownership$X1996, freq = F, right = F, ylim = c(0, 0.12), 
+     xlim = c(30, 100), xlab = "1996", ylab = "Relative Frequency", 
+     main = "", breaks = 20)
+## X2002
+hist(homeownership$X2002, freq = F, right = F, ylim = c(0, 0.12), 
+     xlim = c(30, 100), xlab = "2002", ylab = "Relative Frequency", 
+     main = "", breaks = 20)
 ```
 
-## Including Plots
+## Q 3.11(b)
+The three histograms have similar shape. The average homeownship rate has increased since 1985.
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{R}
+colMeans(homeownership[,2:4])
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+## Q 3.11(c)
+Increases in families incomes so more people can purchase homes.
+
+## Q 3.11(d)
+The average homeship rate increases from 65.87% to 69.44% from 1985 to 2002. This is very small inscrease in a long time period. The Congress should write laws to increase tax deductions so that more people can purchase homes.
+
+## Q 3.12 
+
+Stem-and-leaf plots
+
+* Year 1985
+```{R}
+stem(homeownership$X1985)
+```
+
+* Year 1996
+```{R}
+stem(homeownership$X1996)
+```
+
+* Year 2002
+```{R}
+stem(homeownership$X2002)
+```
+
+## Q 3.13: Descriptions of the stem-and-leaf plots
+
+Both the stem-and-leaf and histogram for all three years are asymmetrical, unimodal and left skewed.
+
+## Q 3.36(a)
+
+Boxplots
+```{R}
+boxplot(homeownership$X1985, xlab="1985", ylim=c(30, 80))
+boxplot(homeownership$X1996, xlab="1996", ylim=c(30, 80))
+boxplot(homeownership$X2002, xlab="2002", ylim=c(30, 80))
+```
+
+Three boxplots are all asysmmetric and left skewed.
+
+## Q 3.36(b)
+Boxplots give the same information from the stem-and-leaf and histograms in 3.11: asysmmetric and left skewed data for all three years.
+
+## Q 3.37
+
+* Mean, median and standard deviation
+
+```{R}
+colMeans(homeownership[,2:4])
+```
+
+* Median
+```{R}
+colwise(median)(homeownership[,2:4])
+```
+
+* Standard deviation
+```{R}
+colwise(sd)(homeownership[,2:4])
+```
+
+## Q 3.37(a)
+
+The __median__ is more approriate than the mean for these data sets, because the data sets are skewed
+
+## Q 3.37(b)
+
+The variability continously descreased since 1985. 
+
+## Q 3.38
+
+```{R}
+y = c(homeownership$X1985, homeownership$X1996, homeownership$X2002)
+x = rep(c("X1985", "X1996", "X2002"), each=nrow(homeownership))
+boxplot(y~x)
+```
+
+## Q 3.38(a)
+
+The median hownownership rate continously increased from 1985 to 2002
+
+## Q 3.38(b)
+The variation hownownership rate continously decreased from 1985 to 2002.
+
+## Q 3.38(c)
+
+* Yes. 
+* State 9, 33, 12 are extremely low in homeownership rate in 1985.
+* State 9, 12, 33 are extremely low in homeownership rate in 1996.
+* State 9, 33, 12 are extremely low in homeownership rate in 2002.
+
+## Q 3.38(d)
+
+No.
+
+## 3.76(a)
+
+Mean, median and standard deviation
+```{R}
+data.frame(mean=mean(hiv$HIV_RNA), 
+           median=median(hiv$HIV_RNA),
+           std=sd(hiv$HIV_RNA))
+```
+
+## 3.76(b)
+
+25%, 50% and 75% percentiles
+```{R}
+quantile(hiv$HIV_RNA)[2:4]
+```
+
+## 3.76(c)
+
+* boxplot
+```{R}
+boxplot(hiv$HIV_RNA, main="HIV RNA")
+```
+
+* histogram
+```{R}
+hist(hiv$HIV_RNA, xlab="HIV RNA", main="", 
+     ylim=c(0,20), breaks=10)
+```
+
+## 3.76(d)
+
+The distribution is unimodal and right skewed.
+
+

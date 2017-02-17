@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Ming Chen &amp; Wenqiang Feng" />
+
+
+<title>Homework #6</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">STAT 537: Statistics for Research I</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-gear"></span>
+     
+    Notes
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Chapter 1</li>
+    <li>
+      <a href="hw1.html">Note #1</a>
+    </li>
+    <li>
+      <a href="hw2.html">Note #2</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Chapter 2</li>
+    <li>
+      <a href="hw1.html">Note #3</a>
+    </li>
+    <li>
+      <a href="hw2.html">Note #4</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-gear"></span>
+     
+    Homework
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Week 1</li>
+    <li>
+      <a href="hw1.html">HW #1</a>
+    </li>
+    <li>
+      <a href="hw2.html">HW #2</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 2</li>
+    <li>
+      <a href="hw3.html">HW #3</a>
+    </li>
+    <li>
+      <a href="hw4.html">HW #4</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 3</li>
+    <li>
+      <a href="hw5.html">HW #5</a>
+    </li>
+    <li>
+      <a href="hw6.html">HW #6</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 4</li>
+    <li>
+      <a href="hw7.html">HW #7</a>
+    </li>
+    <li>
+      <a href="hw8.html">HW #8</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 5</li>
+    <li>
+      <a href="hw9.html">HW #9</a>
+    </li>
+    <li>
+      <a href="hw10.html">HW #10</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 6</li>
+    <li>
+      <a href="hw11.html">HW #11</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-gear"></span>
+     
+    Project
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Project 1</li>
+    <li>
+      <a href="project1.html">Project #1</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Project 2</li>
+    <li>
+      <a href="project2.html">Project #2</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="about.html">
+    <span class="fa fa-info"></span>
+     
+    About
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/runawayhorse001/STAT537">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://web.utk.edu/~wfeng1">
+    <span class="fa fa-question fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Homework #6</h1>
+<h4 class="author"><em>Ming Chen &amp; Wenqiang Feng</em></h4>
+<h4 class="date"><em>2/2/2017</em></h4>
+
+</div>
+
+
+<div id="you-can-also-get-the-pdf-format-of-wenqiangs-homework." class="section level2">
+<h2>You can also get the <a href="./pdf/HW6.pdf">PDF format</a> of Wenqiang’s Homework.</h2>
+<div id="problem-10.12" class="section level3">
+<h3>Problem 10.12</h3>
+<p>Since y = 0, we estimate the adjusted <span class="math inline">\(\pi\)</span></p>
+<ul>
+<li><span class="math inline">\(\hat{\pi}_{Adj} = \frac{3/8}{n+3/4} = \frac{3/8}{20+3/4}\)</span> = 0.01807229</li>
+<li>95% CI = <span class="math inline">\([0, 1-(\alpha/2)^{1/n}]\)</span> = <span class="math inline">\([0, 1-(0.05/2)^{1/20}]\)</span> = [0, 0.1684335]</li>
+</ul>
+</div>
+<div id="problem-10.14" class="section level3">
+<h3>Problem 10.14</h3>
+<ul>
+<li><p>(a). Yes. Because both <span class="math inline">\(n\pi \geq 5\)</span> and <span class="math inline">\(n(1-\pi) &gt; 5\)</span></p></li>
+<li><p>(b). Yes. p-value = 0.04829 &lt; 0.05. The null hypothesis is rejected.</p>
+<ul>
+<li><span class="math inline">\(H_{0}: p \leq 0.5\)</span></li>
+<li><p><span class="math inline">\(H_{a}: p &gt; 0.5\)</span></p></li>
+<li>calculation:
+<ul>
+<li><span class="math inline">\(\hat{\pi}\)</span> = 424/800 = 0.53</li>
+<li><span class="math inline">\(\pi_{0}\)</span> = 0.5</li>
+<li><span class="math inline">\(\sigma_{\hat{\pi}} = \sqrt{\frac{\pi_{0}(1-\pi_{0})}{n}}\)</span> = <span class="math inline">\(\sqrt{0.5(1-0.5)/800}\)</span> = 0.01767767</li>
+<li><span class="math inline">\(z = \frac{\hat{\pi} - \pi_{0}}{\sigma_{\hat{\pi}}}\)</span> = 1.697056</li>
+<li><span class="math inline">\(z = 1.697056 &gt; z_{0.95} = 1.644854\)</span></li>
+</ul></li>
+</ul></li>
+<li><p>(c). 95% CI: <span class="math inline">\(\hat{\pi} \pm 1.96\sigma_{\hat{\pi}}\)</span> = <span class="math inline">\(0.53 \pm 0.01767767\)</span> = [0.5123223, 0.5476777]</p></li>
+</ul>
+</div>
+<div id="problem-10.18" class="section level3">
+<h3>Problem 10.18</h3>
+<ul>
+<li><p>parameter estimates</p>
+<ul>
+<li><span class="math inline">\(\mu = \hat{\pi_{1}} - \hat{\pi_{2}} = 91/250 - 53/250 = 38/250 = 0.152\)</span></li>
+<li><span class="math inline">\(\sigma = \sqrt{\frac{\pi_{1}(1-\pi_{1})}{n1} + \frac{\pi_{2}(1-\pi_{2})}{n2}}\)</span> = 0.03992794</li>
+<li><span class="math inline">\(z = \mu/\sigma\)</span> = 0.152/0.03992794 = 3.806858</li>
+</ul></li>
+</ul>
+<pre class="r"><code>p1 = 91/250
+p2 = 53/250
+n1 = 250
+n2 = 250
+sigma = sqrt(p1*(1-p1)/n1 + p2*(1-p2)/n2)
+sigma</code></pre>
+<pre><code>## [1] 0.03992794</code></pre>
+<ul>
+<li><p>(a). 95% CI for <span class="math inline">\(\pi_{2} - \pi_{2}\)</span>: <span class="math inline">\(\mu \pm 1.96\sigma = 0.152 \pm 1.96(0.03992794)\)</span> = [0.07374124, 0.2302588]</p></li>
+<li><p>(b). <span class="math inline">\(z = 3.806858 &gt; z_{\alpha=0.01} = 2.326348\)</span>, hence reject the <span class="math inline">\(H_{0}\)</span>. Therefore, the warranty will increase the proportion of customers who will purchase a mower.</p></li>
+<li><p>(c). Offering warranty can significantly increase the proportion of people who will purchase a mower. However, whether the dealer should offer warranty or not depends on whether the profit from the additional sales of mower can cover the cost of offering warranty.</p></li>
+</ul>
+</div>
+<div id="problem-10.20" class="section level3">
+<h3>Problem 10.20</h3>
+<ul>
+<li><p>(a).</p>
+<ul>
+<li>95% CI: <span class="math inline">\(\pi_{biofeedback} \pm 1.96\sigma = 0.56 \pm 1.96(0.01569713) = [0.5292336, 0.5907664]\)</span>
+<ul>
+<li><span class="math inline">\(\pi_{0} = 1240/2000 = 0.62\)</span></li>
+<li><span class="math inline">\(\pi_{biofeedback}\)</span> = 560/1000 = 0.56</li>
+<li><span class="math inline">\(\sigma = \sqrt{\frac{\pi_{biofeedback}(1-\pi_{biofeedback})}{n}}\)</span> = <span class="math inline">\(\sqrt{{0.56(1-0.56)/1000}}\)</span> = 0.01569713</li>
+<li><span class="math inline">\(z = \frac{|\pi_{biofeedback} - \pi_{0}|}{\sigma}\)</span> = <span class="math inline">\(\frac{|0.56 - 0.62|}{0.01569713}\)</span> = 3.822355</li>
+</ul></li>
+<li>95% CI: <span class="math inline">\(\pi_{NSAID} \pm 1.96\sigma = 0.68 \pm 1.96(0.01475127) = [0.6510875, 0.7089125]\)</span>
+<ul>
+<li><span class="math inline">\(\pi_{0} = 1240/2000 = 0.62\)</span></li>
+<li><span class="math inline">\(\pi_{NSAID}\)</span> = 680/1000 = 0.68</li>
+<li><span class="math inline">\(\sigma = \sqrt{\frac{\pi_{NSAID}(1-\pi_{NSAID})}{n}}\)</span> = <span class="math inline">\(\sqrt{{0.68(1-0.68)/1000}}\)</span> = 0.01475127</li>
+<li><span class="math inline">\(z = \frac{|\pi_{NSAID} - \pi_{0}|}{\sigma}\)</span> = <span class="math inline">\(\frac{|0.68 - 0.62|}{0.01475127}\)</span> = 4.067446</li>
+</ul></li>
+</ul></li>
+<li><p>(b). Yes. p-value = 4.204e-08 &lt; 0.05. There is a strong evidence that the proportions of patients who experienced a significant reduction in pain are significantly different between the two treatments.</p></li>
+</ul>
+<pre class="r"><code>yes = c(560, 680)
+no = c(440, 320)
+pain_reduction = cbind(yes, no)
+rownames(pain_reduction) = c(&quot;biofeedback&quot;, &quot;NSAID&quot;)
+chisq_test = chisq.test(pain_reduction)
+chisq_test</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
+## 
+## data:  pain_reduction
+## X-squared = 30.053, df = 1, p-value = 4.204e-08</code></pre>
+<ul>
+<li><p>(c). 95% CI on the difference:</p>
+<ul>
+<li><span class="math inline">\(P_{biofeedback} - P_{NSAID}\)</span> = 0.56 - 0.68 = -0.12</li>
+<li>95% CI on the difference: [-0.16321892, -0.07678108]</li>
+</ul></li>
+</ul>
+<pre class="r"><code>prop.test(pain_reduction)</code></pre>
+<pre><code>## 
+##  2-sample test for equality of proportions with continuity
+##  correction
+## 
+## data:  pain_reduction
+## X-squared = 30.053, df = 1, p-value = 4.204e-08
+## alternative hypothesis: two.sided
+## 95 percent confidence interval:
+##  -0.16321892 -0.07678108
+## sample estimates:
+## prop 1 prop 2 
+##   0.56   0.68</code></pre>
+</div>
+<div id="problem-10.78" class="section level3">
+<h3>Problem 10.78</h3>
+<pre class="r"><code>oneplus = c(10, 14, 19)
+none = c(90, 86, 81)
+tumors = data.frame(oneplus, none)
+rownames(tumors) = c(&quot;control&quot;, &quot;low_dose&quot;, &quot;high_dose&quot;)
+tumors</code></pre>
+<pre><code>##           oneplus none
+## control        10   90
+## low_dose       14   86
+## high_dose      19   81</code></pre>
+<ul>
+<li>(a).
+<ul>
+<li>control: 10%</li>
+<li>low dose: 14%</li>
+<li>high dose: 19%</li>
+</ul></li>
+<li>(b). p-value = 0.1909 &gt; 0.05. We fail to reject the <span class="math inline">\(H_{0}\)</span>. There is no strong evidence to show a significant difference in proportions among the three treatments.</li>
+</ul>
+<pre class="r"><code>chisq.test(tumors)</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  tumors
+## X-squared = 3.3119, df = 2, p-value = 0.1909</code></pre>
+<ul>
+<li>(c). No. the Chi-square test failed to reject the null hypothesis.</li>
+</ul>
+</div>
+<div id="problem-2x2-contigency-table" class="section level3">
+<h3>Problem 2x2 contigency table</h3>
+<pre class="r"><code>vote_for = c(11, 41)
+vote_against = c(46, 2)
+vote = cbind(vote_for, vote_against)
+rownames(vote) = c(&quot;democrat&quot;, &quot;republican&quot;)
+vote</code></pre>
+<pre><code>##            vote_for vote_against
+## democrat         11           46
+## republican       41            2</code></pre>
+<div id="testing-the-hypothesis" class="section level4">
+<h4>Testing the hypothesis</h4>
+<p>One of the cells in the 2x2 contigency table has very small value. The large sample assumption is invalid. So we use fisher’s exact test for testing our hypothesis.</p>
+<p>Since p-value = 2.029e-15, we reject our null hypothesis. There is a strong evidence that the voting for Judge Thomas is NOT independent of political affiliation.</p>
+<pre class="r"><code>fisher.test(vote, conf.level = 0.99)</code></pre>
+<pre><code>## 
+##  Fisher&#39;s Exact Test for Count Data
+## 
+## data:  vote
+## p-value = 2.029e-15
+## alternative hypothesis: true odds ratio is not equal to 1
+## 99 percent confidence interval:
+##  0.0005700799 0.0834071130
+## sample estimates:
+## odds ratio 
+## 0.01247519</code></pre>
+</div>
+<div id="estimate-the-difference-between-the-two-proportions" class="section level4">
+<h4>Estimate the difference between the two proportions</h4>
+<ul>
+<li>Estimated difference in proportion: 11/(11+46) - 41/(41+2) = -0.7605059</li>
+<li>95% CI: [-0.9011466, -0.6198652]</li>
+</ul>
+<pre class="r"><code>prop.vote.fit = prop.test(vote)
+prop.vote.fit</code></pre>
+<pre><code>## 
+##  2-sample test for equality of proportions with continuity
+##  correction
+## 
+## data:  vote
+## X-squared = 53.788, df = 1, p-value = 2.233e-13
+## alternative hypothesis: two.sided
+## 95 percent confidence interval:
+##  -0.9011466 -0.6198652
+## sample estimates:
+##    prop 1    prop 2 
+## 0.1929825 0.9534884</code></pre>
+</div>
+</div>
+</div>
+
+<center>Copyright &copy; 2017 Ming Chen  & Wenqiang Feng. All rights reserved.</center>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

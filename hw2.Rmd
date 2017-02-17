@@ -4,27 +4,98 @@ author: "Ming Chen & Wenqiang Feng"
 date: "2/2/2017"
 output: html_document
 ---
+## You can also get the [PDF format](./pdf/HW2.pdf) of Wenqiang's Homework.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## Q1
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+* a. $n=10, \pi=0.2, y=3$
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{R}
+P = dbinom(3, 10, 0.2)
+P
 ```
 
-## Including Plots
+* b. $n=4, \pi=0.4, y=2$
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{R}
+P = dbinom(2, 4, 0.4)
+P
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+* c. $n=16, \pi=0.7, y=12$
+
+```{R}
+P = dbinom(12, 16, 0.7)
+P
+```
+
+
+## Q2
+
+* a.   $P(y\leq4)$
+
+```{R}
+P = pbinom(4, 8, 0.4)
+P
+```
+
+* b.   $P(y>4) = 1 - P(y\leq4)$
+
+```{R}
+P = 1 - pbinom(4, 8, 0.4)
+P
+```
+
+* c.   $P(y\leq7) = P(y\leq7) - P(y=7)$
+
+```{R}
+P = pbinom(7, 8, 0.4) - dbinom(7, 8, 0.4)
+P
+```
+
+* d.   $P(y\geq6) = 1 - P(y\leq6) + P(y=6)$
+
+```{R}
+P = 1 - pbinom(6, 8, 0.4) + dbinom(6, 8, 0.4)
+P
+```
+
+
+## Q3 Exercise 4.46
+
+* a. two are rated as outstanding
+    + P(outstanding) = 0.1 
+    + P(X=2) = `dbinom(2, 10, 0.1)` = `r dbinom(2, 10, 0.1)`
+  
+```{R}
+dbinom(2, 10, 0.1)
+```
+
+* b. two or more are rated as outstanding
+    + P(outstanding) = 0.1
+    + $P(X\geq2) = 1 - P(X\leq1)$ = `1 - pbinom(1, 10, 0.1)` = `r 1 - pbinom(1, 10, 0.1)`
+  
+```{R}
+1 - pbinom(1, 10, 0.1)
+```
+
+
+* c. eight of the ten are rated either outstanding or excellent
+    + P(outstanding or excellent) = 0.1 + 0.75 = 0.85
+    + P(X=8) = `dbinom(8, 10, 0.85)` = `r dbinom(8, 10, 0.85)`
+
+```{R}
+dbinom(8, 10, 0.85)
+```
+
+* d. none of the trainees is rated as unsatisfactory
+    + P(unsatisfactory) = 0.05
+    + P(X=0) = `dbinom(0, 10, 0.05)` = `r dbinom(0, 10, 0.05)`
+
+```{R}
+dbinom(0, 10, 0.05)
+```

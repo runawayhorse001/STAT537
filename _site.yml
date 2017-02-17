@@ -14,27 +14,49 @@ navbar:
         - text: "Note #1"
           href:  hw1.html
         - text: "Note #2"
-          href: hw2.html
+          href:  hw2.html
         - text: "---------"
         - text: "Chapter 2"
         - text: "Note #3"
-          href:  projtct1.html
+          href:  hw1.html
         - text: "Note #4"
-          href: project2.html
+          href:  hw2.html
     - text: "Homework"
       icon: fa-gear
       menu:
-        - text: "Chapter 1"
+        - text: "Week 1"
         - text: "HW #1"
           href:  hw1.html
         - text: "HW #2"
-          href: hw2.html
+          href:  hw2.html
         - text: "---------"
-        - text: "Chapter 2"
+        - text: "Week 2"
         - text: "HW #3"
-          href:  hw1.html
+          href:  hw3.html
         - text: "HW #4"
-          href: project2.html  
+          href:  hw4.html
+        - text: "---------"
+        - text: "Week 3"
+        - text: "HW #5"
+          href:  hw5.html
+        - text: "HW #6" 
+          href:  hw6.html   
+        - text: "---------"
+        - text: "Week 4"
+        - text: "HW #7"
+          href:  hw7.html
+        - text: "HW #8" 
+          href:  hw8.html 
+        - text: "---------"
+        - text: "Week 5"
+        - text: "HW #9"
+          href:  hw9.html
+        - text: "HW #10" 
+          href:  hw10.html
+        - text: "---------"
+        - text: "Week 6"
+        - text: "HW #11"
+          href:  hw11.html
     - text: "Project"
       icon: fa-gear
       menu:

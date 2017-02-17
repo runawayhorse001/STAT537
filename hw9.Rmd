@@ -1,0 +1,85 @@
+---
+title: "Homework #9"
+author: "Ming Chen & Wenqiang Feng"
+date: "2/2/2017"
+output: html_document
+---
+
+## You can also get the [PDF format](./pdf/HW9.pdf) of Wenqiang's Homework.
+
+## Data
+
+```{R}
+## response variable: PULSE
+## predictor variables: RUN, SMOKE, HEIGHT, WEIGHT, PHYS1, PHYS2
+mlrdata = read.table("./data/ex13-69.TXT", header = T, row.names = 1)
+mlrdata$RUN = as.factor(mlrdata$RUN)
+mlrdata$RUN = relevel(mlrdata$RUN, ref = "0")
+mlrdata$SMOKE = as.factor(mlrdata$SMOKE)
+mlrdata$SMOKE = relevel(mlrdata$SMOKE, ref="0")
+mlrdata$PHYS1 = as.factor(mlrdata$PHYS1)
+mlrdata$PHYS1 = relevel(mlrdata$PHYS1, ref="0")
+mlrdata$PHYS2 = as.factor(mlrdata$PHYS2)
+mlrdata$PHYS2 = relevel(mlrdata$PHYS2, ref="0")
+```
+
+## problem a
+
+```{R}
+mlrfit = lm(PULSE~RUN+SMOKE+HEIGHT+WEIGHT+PHYS1+PHYS2, data=mlrdata)
+summary(mlrfit)
+beta0 = coef(mlrfit)['(Intercept)']
+betaRun1 = coef(mlrfit)['RUN1']
+betaSmoke1 = coef(mlrfit)['SMOKE1']
+betaHeight = coef(mlrfit)['HEIGHT']
+betaWeight = coef(mlrfit)['WEIGHT']
+betaPhys1 = coef(mlrfit)['PHYS11']
+betaPhys2 = coef(mlrfit)['PHYS21']
+```
+
+Full Model: PULSE = `r beta0` + `r betaRun1`\*(RUN=1)  `r betaSmoke1`\*(SMOKE=1)  `r betaHeight`\*(HEIGHT) + `r betaWeight`\*(WEIGHT) + `r betaPhys1`\*(PHYS1) + `r betaPhys2`\*(PHYS2)
+
+## problem b
+
+```{R fig.width=5, fig.height=5}
+rstudentVal = rstudent(mlrfit)
+cooksDisVal = cooks.distance(mlrfit)
+plot(rstudentVal~cooksDisVal, xlab="Cook's Distance", 
+     ylab="Studentized Residuals", ylim=c(-3,3))
+abline(h=c(-2,2), lty="dashed", lwd=2, col="blue")
+potentialInfObs = cooksDisVal[rstudentVal>2 | rstudentVal<(-2)]
+potentialInfObs
+```
+
+No influential observations exit. There is one observation that has large studentized residual. However, Cook's D for this observation is `r potentialInfObs`, which indicates small influence on the overall fit of the model.
+
+#### problem c
+
+```{R}
+stepwiseFit = step(mlrfit, direction = "both", test="F")
+```
+
+Stepwise regression selection indicates that *RUN*, *SMOKE*, *PHYS1* and *PHYS2* are important variables to the model.
+
+#### problem d
+
+Choose the four important variables to re-fit the model.
+
+```{R}
+finalMod = lm(PULSE~RUN+SMOKE+PHYS1+PHYS2, data=mlrdata)
+summary(finalMod)
+
+beta0 = coef(finalMod)['(Intercept)']
+betaRun1 = coef(finalMod)['RUN1']
+betaSmoke1 = coef(finalMod)['SMOKE1']
+betaPhys1 = coef(finalMod)['PHYS11']
+betaPhys2 = coef(finalMod)['PHYS21']
+```
+
+The result shows that only variable *RUN*, *SMOKE*, *PHYS1* have significant effect on *PULSE*. 
+
+* Final Model: PULSE = `r beta0` + `r betaRun1`\*(RUN=1)  `r betaSmoke1`\*(SMOKE=1) + `r betaPhys1`\*(PHYS1)  
+
+    + Given that other variables are consistent, the pulse of people who ran was 11.132 higher than people who didn't run.
+    + Given that other variables are consistent, the pulse of people who smoke was 6.963 lower than people who don't smoke.
+    + Given that other variables are consistent, the pulse of people who did a lot of physical exercise is 13.325 higher than people who didn't.

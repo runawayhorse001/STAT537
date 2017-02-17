@@ -203,10 +203,10 @@ $(document).ready(function () {
     <li class="divider"></li>
     <li class="dropdown-header">Chapter 2</li>
     <li>
-      <a href="projtct1.html">Note #3</a>
+      <a href="hw1.html">Note #3</a>
     </li>
     <li>
-      <a href="project2.html">Note #4</a>
+      <a href="hw2.html">Note #4</a>
     </li>
   </ul>
 </li>
@@ -219,7 +219,7 @@ $(document).ready(function () {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Chapter 1</li>
+    <li class="dropdown-header">Week 1</li>
     <li>
       <a href="hw1.html">HW #1</a>
     </li>
@@ -227,12 +227,41 @@ $(document).ready(function () {
       <a href="hw2.html">HW #2</a>
     </li>
     <li class="divider"></li>
-    <li class="dropdown-header">Chapter 2</li>
+    <li class="dropdown-header">Week 2</li>
     <li>
-      <a href="hw1.html">HW #3</a>
+      <a href="hw3.html">HW #3</a>
     </li>
     <li>
-      <a href="project2.html">HW #4</a>
+      <a href="hw4.html">HW #4</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 3</li>
+    <li>
+      <a href="hw5.html">HW #5</a>
+    </li>
+    <li>
+      <a href="hw6.html">HW #6</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 4</li>
+    <li>
+      <a href="hw7.html">HW #7</a>
+    </li>
+    <li>
+      <a href="hw8.html">HW #8</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 5</li>
+    <li>
+      <a href="hw9.html">HW #9</a>
+    </li>
+    <li>
+      <a href="hw10.html">HW #10</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 6</li>
+    <li>
+      <a href="hw11.html">HW #11</a>
     </li>
   </ul>
 </li>
@@ -293,24 +322,117 @@ $(document).ready(function () {
 </div>
 
 
-<div id="r-markdown" class="section level2">
-<h2>R Markdown</h2>
-<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
-<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
-<pre class="r"><code>summary(cars)</code></pre>
-<pre><code>##      speed           dist       
-##  Min.   : 4.0   Min.   :  2.00  
-##  1st Qu.:12.0   1st Qu.: 26.00  
-##  Median :15.0   Median : 36.00  
-##  Mean   :15.4   Mean   : 42.98  
-##  3rd Qu.:19.0   3rd Qu.: 56.00  
-##  Max.   :25.0   Max.   :120.00</code></pre>
+<div id="you-can-also-get-the-pdf-format-of-wenqiangs-homework." class="section level2">
+<h2>You can also get the <a href="./pdf/HW2.pdf">PDF format</a> of Wenqiang’s Homework.</h2>
 </div>
-<div id="including-plots" class="section level2">
-<h2>Including Plots</h2>
-<p>You can also embed plots, for example:</p>
-<p><img src="hw2_files/figure-html/pressure-1.png" width="672" /></p>
-<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
+<div id="q1" class="section level2">
+<h2>Q1</h2>
+<ul>
+<li><ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(n=10, \pi=0.2, y=3\)</span></li>
+</ol></li>
+</ul>
+<pre class="r"><code>P = dbinom(3, 10, 0.2)
+P</code></pre>
+<pre><code>## [1] 0.2013266</code></pre>
+<ul>
+<li><ol start="2" style="list-style-type: lower-alpha">
+<li><span class="math inline">\(n=4, \pi=0.4, y=2\)</span></li>
+</ol></li>
+</ul>
+<pre class="r"><code>P = dbinom(2, 4, 0.4)
+P</code></pre>
+<pre><code>## [1] 0.3456</code></pre>
+<ul>
+<li><ol start="3" style="list-style-type: lower-alpha">
+<li><span class="math inline">\(n=16, \pi=0.7, y=12\)</span></li>
+</ol></li>
+</ul>
+<pre class="r"><code>P = dbinom(12, 16, 0.7)
+P</code></pre>
+<pre><code>## [1] 0.2040483</code></pre>
+</div>
+<div id="q2" class="section level2">
+<h2>Q2</h2>
+<ul>
+<li><ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(P(y\leq4)\)</span></li>
+</ol></li>
+</ul>
+<pre class="r"><code>P = pbinom(4, 8, 0.4)
+P</code></pre>
+<pre><code>## [1] 0.8263296</code></pre>
+<ul>
+<li><ol start="2" style="list-style-type: lower-alpha">
+<li><span class="math inline">\(P(y&gt;4) = 1 - P(y\leq4)\)</span></li>
+</ol></li>
+</ul>
+<pre class="r"><code>P = 1 - pbinom(4, 8, 0.4)
+P</code></pre>
+<pre><code>## [1] 0.1736704</code></pre>
+<ul>
+<li><ol start="3" style="list-style-type: lower-alpha">
+<li><span class="math inline">\(P(y\leq7) = P(y\leq7) - P(y=7)\)</span></li>
+</ol></li>
+</ul>
+<pre class="r"><code>P = pbinom(7, 8, 0.4) - dbinom(7, 8, 0.4)
+P</code></pre>
+<pre><code>## [1] 0.9914803</code></pre>
+<ul>
+<li><ol start="4" style="list-style-type: lower-alpha">
+<li><span class="math inline">\(P(y\geq6) = 1 - P(y\leq6) + P(y=6)\)</span></li>
+</ol></li>
+</ul>
+<pre class="r"><code>P = 1 - pbinom(6, 8, 0.4) + dbinom(6, 8, 0.4)
+P</code></pre>
+<pre><code>## [1] 0.04980736</code></pre>
+</div>
+<div id="q3-exercise-4.46" class="section level2">
+<h2>Q3 Exercise 4.46</h2>
+<ul>
+<li><ol style="list-style-type: lower-alpha">
+<li>two are rated as outstanding</li>
+</ol>
+<ul>
+<li>P(outstanding) = 0.1</li>
+<li>P(X=2) = <code>dbinom(2, 10, 0.1)</code> = 0.1937102</li>
+</ul></li>
+</ul>
+<pre class="r"><code>dbinom(2, 10, 0.1)</code></pre>
+<pre><code>## [1] 0.1937102</code></pre>
+<ul>
+<li><ol start="2" style="list-style-type: lower-alpha">
+<li>two or more are rated as outstanding</li>
+</ol>
+<ul>
+<li>P(outstanding) = 0.1</li>
+<li><span class="math inline">\(P(X\geq2) = 1 - P(X\leq1)\)</span> = <code>1 - pbinom(1, 10, 0.1)</code> = 0.2639011</li>
+</ul></li>
+</ul>
+<pre class="r"><code>1 - pbinom(1, 10, 0.1)</code></pre>
+<pre><code>## [1] 0.2639011</code></pre>
+<ul>
+<li><ol start="3" style="list-style-type: lower-alpha">
+<li>eight of the ten are rated either outstanding or excellent</li>
+</ol>
+<ul>
+<li>P(outstanding or excellent) = 0.1 + 0.75 = 0.85</li>
+<li>P(X=8) = <code>dbinom(8, 10, 0.85)</code> = 0.2758967</li>
+</ul></li>
+</ul>
+<pre class="r"><code>dbinom(8, 10, 0.85)</code></pre>
+<pre><code>## [1] 0.2758967</code></pre>
+<ul>
+<li><ol start="4" style="list-style-type: lower-alpha">
+<li>none of the trainees is rated as unsatisfactory</li>
+</ol>
+<ul>
+<li>P(unsatisfactory) = 0.05</li>
+<li>P(X=0) = <code>dbinom(0, 10, 0.05)</code> = 0.5987369</li>
+</ul></li>
+</ul>
+<pre class="r"><code>dbinom(0, 10, 0.05)</code></pre>
+<pre><code>## [1] 0.5987369</code></pre>
 </div>
 
 <center>Copyright &copy; 2017 Ming Chen  & Wenqiang Feng. All rights reserved.</center>

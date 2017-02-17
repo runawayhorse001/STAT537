@@ -1,0 +1,63 @@
+---
+title: "Homework #11"
+author: "Ming Chen & Wenqiang Feng"
+date: "2/2/2017"
+output: html_document
+---
+
+## You can also get the [PDF format](./pdf/HW11.pdf) of Wenqiang's Homework.
+
+## Load data
+
+```{R}
+data165 = read.table("./data/ex16-5.TXT", header = T)
+```
+
+## Problem 16.5 (b)
+
+```{R warning=F, message=F}
+library(ggplot2)
+lm.fit = lm(RISK~NOCIG, data=data165)
+coefEst = coef(lm.fit)
+ggplot(data165, aes(x=NOCIG, y=RISK)) + 
+  geom_point() +
+  geom_abline(intercept = coefEst[1], slope = coefEst[2], col="blue") +
+  xlab("Number of cigarattes smoked") +
+  ylab("Risk index of CVD")
+```
+
+## Problem 16.6 (b)
+
+```{R}
+lmCov = lm(RISK~NOCIG+TREATMENT+NOCIG:TREATMENT, data=data165)
+anova(lmCov)
+pval = as.character(anova(lmCov)$`Pr(>F)`); pval
+```
+
+The p-value for the interaction term (NOCIG:TREATMENT) is `r pval[3]` > 0.05. We **cannot reject** the $H_{0}$ that the slopes for the three treatments are eqaul. 
+
+Below is a scatterplot grouped by treatments, also showing a very weak evidence of equal slopes for the three treatments.
+
+```{R}
+coefC = coef(lm(RISK~NOCIG, data=data165[data165$TREATMENT=="C", ])); coefC
+coefI = coef(lm(RISK~NOCIG, data=data165[data165$TREATMENT=="I", ])); coefI
+coefII = coef(lm(RISK~NOCIG, data=data165[data165$TREATMENT=="II", ])); coefII
+
+ggplot(data165, aes(x=NOCIG, y=RISK, col=TREATMENT)) + 
+  geom_point() +
+  geom_abline(intercept = coefC[1], slope = coefC[2], col="red") +
+  geom_abline(intercept = coefI[1], slope = coefI[2], col="green") +
+  geom_abline(intercept = coefII[1], slope = coefII[2], col="blue") +
+  xlab("Number of cigarattes smoked") +
+  ylab("Risk index of CVD")
+```
+
+## Problem 16.6 (b)
+
+```{R}
+lmCov = lm(RISK~NOCIG+TREATMENT, data=data165)
+anova(lmCov)
+pval = as.character(anova(lmCov)$`Pr(>F)`); pval
+```
+
+Yes. The p-value for TREATMENT is **`r pval[2]`**, indicating a strong evidence of difference in the mean risk index for the three treatments. 

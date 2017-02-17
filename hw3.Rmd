@@ -1,0 +1,78 @@
+---
+title: "Homework #3"
+author: "Ming Chen & Wenqiang Feng"
+date: "2/2/2017"
+output: html_document
+---
+
+## You can also get the [PDF format](./pdf/HW3.pdf) of Wenqiang's Homework.
+
+## Using the exact binomial distribution
+
+* $When P=0.1, P(y\leq1) = pbinom(1, 20, 0.1) =$ `r pbinom(1, 20, 0.1)`
+* $When P=0.3, P(y\leq1) = pbinom(1, 20, 0.3) =$ `r pbinom(1, 20, 0.3)`
+
+## Using normal approximation without continuity correction
+
+* When P = 0.1, y = 1
+
+    + $\mu = n\pi = 20(0.1) =$ `r 20*0.1`
+  
+    + $\sigma = \sqrt{n\pi (1-\pi)} = \sqrt{20(0.1)(1-0.1)}$ = `r sqrt(20*(0.1)*(1-0.1))`
+  
+    + $z = \frac{y-\mu}{\sigma} = \frac{1-2}{1.341641}$ = `r (1-2)/1.341641`
+  
+    + $P(y\leq1) \approx P(z< -0.7453559) = pnorm(-0.7453559) =$ `r pnorm(-0.7453559)` 
+    
+* When P = 0.3, y = 1
+
+    + $\mu = n\pi = 20(0.3) =$ `r 20*0.3`
+  
+    + $\sigma = \sqrt{n\pi (1-\pi)} = \sqrt{20(0.3)(1-0.3)}$ = `r sqrt(20*(0.3)*(1-0.3))`
+  
+    + $z = \frac{y-\mu}{\sigma} = \frac{1-6}{`r sqrt(20*(0.3)*(1-0.3))`}$ = `r (1-6)/2.04939`
+  
+    + $P(y\leq1) \approx P(z< -2.43975) = pnorm(-2.43975) =$ `r pnorm(-2.43975)` 
+    
+## Using normal approximation with continuity correction
+
+* When P = 0.1, y = 1
+
+    + $\mu = n\pi = 20(0.1) =$ `r 20*0.1`
+  
+    + $\sigma = \sqrt{n\pi (1-\pi)} = \sqrt{20(0.1)(1-0.1)}$ = `r sqrt(20*(0.1)*(1-0.1))`
+  
+    + $z = \frac{y-\mu}{\sigma} = \frac{1.5-2}{1.341641}$ = `r (1.5-2)/1.341641`
+  
+    + $P(y\leq1) \approx P(z< -0.3726779) = pnorm(-0.3726779) =$ `r pnorm(-0.3726779)` 
+    
+* When P = 0.3, y = 1
+
+    + $\mu = n\pi = 20(0.3) =$ `r 20*0.3`
+  
+    + $\sigma = \sqrt{n\pi (1-\pi)} = \sqrt{20(0.3)(1-0.3)}$ = `r sqrt(20*(0.3)*(1-0.3))`
+  
+    + $z = \frac{y-\mu}{\sigma} = \frac{1.5-6}{`r sqrt(20*(0.3)*(1-0.3))`}$ = `r (1.5-6)/2.04939`
+  
+    + $P(y\leq1) \approx P(z< -2.195775) = pnorm(-2.195775) =$ `r pnorm(-2.195775)` 
+    
+## Does the continuity correction always yield a better approximation?
+
+* No. From our case we can see that the continuity correction yields a better approximation for one (P=0.1) but not for the other (P=0.3). 
+
+## Exercise 4.54
+
+* a. find the area under the normal curve between z = 0.7 and z = 1.7
+    + P = `pnorm(1.7) - pnorm(0.7)` = `r pnorm(1.7) - pnorm(0.7)`
+
+* b. find the area under the normal curve between z = -1.2 and z = 0
+    + P = `pnorm(0) - pnorm(-1.2)` = `r pnorm(0) - pnorm(-1.2)`
+
+
+## Exercise 4.64
+
+* a. $P(y > 100) = 1 - P(y\leq100)$ = `1 - pnorm(100, 100, 8)` = `r 1-pnorm(100, 100, 8)`
+* b. $P(y>105) = 1 - P(y\leq105)$ = `1 - pnorm(105, 100, 8)` = `r 1-pnorm(105, 100, 8)`
+* c. $P(y<110) = 1 - P(y\leq110)$ = `pnorm(110, 100, 8)` = `r pnorm(110, 100, 8)`
+* d.  $P(88<y<120)=$ `pnorm(120, 100, 8) - pnorm(88, 100, 8)` = `r pnorm(120, 100, 8) - pnorm(88, 100, 8)`
+* f.  $P(100<y<108)=$ `pnorm(108, 100, 8) - pnorm(100, 100, 8)` = `r pnorm(108, 100, 8) - pnorm(100, 100, 8)`

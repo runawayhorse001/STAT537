@@ -1,0 +1,258 @@
+---
+title: "STAT527-midterm"
+author: "Ming Chen"
+date: "November 2, 2016"
+output: pdf_document
+---
+
+## Load data
+
+```{R}
+setwd("/Users/mingchen/Google\ Drive/course_UTK/courses-2016-fall/STAT-537/HW")
+weight = read.table("Weight.txt", header =T)
+wlabor = read.csv("WLabor.csv", header = T)[,1:3]
+potencies = unlist(read.table("Potencies.txt"))
+```
+
+
+## Problem 1
+
+#### a. Create a stem-and-leaf plot for these data
+```{R}
+stem(potencies)
+```
+
+#### b. Assess the normality of these data
+* The shapiro wilk test indicates the data is from a normal distribution.
+
+```{R fig.width=5, fig.height=5}
+shapiro.test(potencies)
+qqnorm(potencies)
+qqline(potencies)
+```
+
+#### c. Provide a 99% confidence interval for the average potency
+
+
+```{R}
+mu = mean(potencies)
+s = sd(potencies)
+n = length(potencies)
+SE = s/sqrt(n); SE
+lower = mu - qt(0.995, df=n-1)*SE; lower
+upper = mu + qt(0.995, df=n-1)*SE; upper
+```
+
+* 99% confidence interval: $[\mu - t_{0.01/2}\frac{s}{\sqrt{n}}, \mu + t_{0.01/2}\frac{s}{\sqrt{n}}]$ = [`r lower`, `r upper`]
+    + $\mu$ = `r mu`
+    + s = `r s`
+    + n = `r n`
+    + $t_{0.01/2}$ = `r qt(0.995, df=n-1)`
+
+#### d. Based on your results for part(c), can we conclude that the average potency is 25 mg as advertised?
+
+* Yes. 25 is within the 99% confidence interval [24.35735, 25.83599]. 
+
+
+## Problem 2
+
+#### a. Compute the difference scores between percentages for each year and create a stem-and-leaf plot for these difference scores.
+
+* Difference score
+
+```{R warning=F, message=F}
+library(plyr)
+difference_scores = mutate(wlabor, difference_scores = Year_68 - Year_72)
+difference_scores
+```
+
+* Stem-and-leaf plot for difference scores
+
+```{R}
+stem(difference_scores$difference_scores)
+```
+
+
+
+#### b. Assess the normality of these difference scores.
+
+* The shapiro wilk test indicates non-normality of these differenct scores
+
+```{R warning=F, message=F, fig.width=5, fig.height=5}
+shapiro.test(difference_scores$difference_scores)
+qqnorm(difference_scores$difference_scores)
+qqline(difference_scores$difference_scores)
+```
+
+
+#### c. Based upon the results from part(b), wilcoxon signed ranks test is applied to determined whether there is a significant difference.
+
+* P value = 0.01324 < 0.05, indicates a significant difference between the average percentages in 1968 and in 1972.
+
+```{R warning=F, message=F}
+wilcoxTest = wilcox.test(difference_scores$difference_scores, conf.int = T); wilcoxTest
+```
+
+#### d. Estimate the difference with a 95% condifence interval
+
+```{R}
+difference = wilcoxTest$estimate; difference
+CI95 = as.numeric(wilcoxTest$conf.int); CI95
+```
+
+* Difference = `r difference`
+* 95% CI = `r CI95`
+
+
+## Problem 3
+
+#### a. Stacked histogram and side-by-side box-and-whisker plots
+
+* Stacked histogram
+
+```{R fig.width=5, fig.height=5}
+library(ggplot2)
+ggplot(weight, aes(Time, fill=Therapy, alpha=0.5)) +
+  geom_histogram(binwidth = 5)
+```
+
+* Box-and-whisker plots
+
+```{R fig.width=5, fig.height=5}
+ggplot(weight, aes(Therapy, Time)) +
+  geom_boxplot()
+```
+
+
+#### b. Assess the normality of data from each of the two therapies
+
+* Normality assessment for therapy A
+    + p value = 0.7462, indicating that the data is from a normal distribution.
+```{R}
+therapyA = weight[weight$Therapy=="A", 2]
+shapiro.test(therapyA)
+```
+
+* Normality assessment for therapy B
+    + p value = 0.4024, indicating that the data is from a normal distribution.
+```{R}
+therapyB = weight[weight$Therapy=="B", 2]
+shapiro.test(therapyB)
+```
+
+#### c. 95% confidence interval for the mean times
+
+
+
+```{R}
+mu = mean(therapyA)
+s = sd(therapyA)
+n = length(therapyA)
+SE = s/sqrt(n); SE
+lower = mu - qt(0.975, df=n-1)*SE; lower
+upper = mu + qt(0.975, df=n-1)*SE; upper
+```
+
+* 95% confidence interval for therapy A
+    - 99% confidence interval: $[\mu - t_{0.05/2}\frac{s}{\sqrt{n}},     \mu + t_{0.01/2}\frac{s}{\sqrt{n}}]$ = [`r lower`, `r upper`]
+        + $\mu$ = `r mu`
+        + s = `r s`
+        + n = `r n`
+        + $t_{0.05/2}$ = `r qt(0.975, df=n-1)`
+
+
+
+```{R}
+mu = mean(therapyB)
+s = sd(therapyB)
+n = length(therapyB)
+SE = s/sqrt(n); SE
+lower = mu - qt(0.975, df=n-1)*SE; lower
+upper = mu + qt(0.975, df=n-1)*SE; upper
+```
+
+* 95% confidence interval for therapy B
+    - 99% confidence interval: $[\mu - t_{0.05/2}\frac{s}{\sqrt{n}}, \mu +     t_{0.01/2}\frac{s}{\sqrt{n}}]$ = [`r lower`, `r upper`]
+        + $\mu$ = `r mu`
+        + s = `r s`
+        + n = `r n`
+        + $t_{0.05/2}$ = `r qt(0.975, df=n-1)`
+
+
+#### d. Determine if the variances of the times from the two therapies are equal
+
+```{R}
+varTest=var.test(therapyA, therapyB); varTest
+```
+
+* p value = `r varTest$p.value` < 0.05, reject $H_{0}$. The variances are not equal.
+
+
+#### e. Test whether the means of the times of the two therapies are equal
+
+* Based upon the results from part(d), wilcox rank sum test is applied.
+
+```{R}
+wilcoxTest=wilcox.test(therapyA, therapyB, conf.int = T); wilcoxTest
+```
+
+* p value = `r wilcoxTest$p.value`, indicating a significant difference in the means of the times of the two therapies.
+
+```{R}
+difference = wilcoxTest$estimate; difference
+CI95 = as.numeric(wilcoxTest$conf.int); CI95
+```
+
+* Time difference = `r difference`
+* 95% confidence interval = `r CI95`
+
+
+## Problem 4
+
+#### Data
+```{R}
+clearance_granted = c(49, 117)
+clearance_not_granted = c(33, 17)
+employee = data.frame(clearance_granted, clearance_not_granted)
+rownames(employee) = c("salaried", "wage_earning")
+```
+#### a. Determine whether clearance to return to work is independent of employee type.
+
+
+```{R}
+Xsq = chisq.test(employee); Xsq
+chisqV = Xsq$statistic; chisqV
+p = Xsq$p.value; p
+```
+
+* Results: $\chi^{2}$ = `r chisqV`; p-value < 0.001 . Reject null hypothesis.
+* Conclusion: clearance to return to work is not independent of exployee type.
+
+#### b. Estimate the proportion of salaried workers granted clearance
+
+```{R}
+salariesProp = prop.test(49, 49+33, conf.level = 0.99); salariesProp
+```
+
+* Proportion = `r salariesProp$estimate`
+* 99% confidence interval = [`r salariesProp$conf.int`]
+
+#### c. Estimate the proportion of wage-earning workers granted clearance
+
+```{R}
+wageearningProp = prop.test(117, 117+17, conf.level = 0.99); wageearningProp
+```
+
+* Proportion = `r wageearningProp$estimate`
+* 99% confidence interval = [`r wageearningProp$conf.int`]
+
+#### d. Estimate the difference in these two proportions
+
+```{R}
+diffPropTest = prop.test(as.matrix(employee)); diffPropTest
+diffProp = diffPropTest$estimate[1] -diffPropTest$estimate[2]; diffProp 
+CI99 = diffPropTest$conf.int; CI99
+```
+
+* Proportion difference = `r diffProp`
+* 95% confidence interval = [`r CI99`]

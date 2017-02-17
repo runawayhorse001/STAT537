@@ -203,10 +203,10 @@ $(document).ready(function () {
     <li class="divider"></li>
     <li class="dropdown-header">Chapter 2</li>
     <li>
-      <a href="projtct1.html">Note #3</a>
+      <a href="hw1.html">Note #3</a>
     </li>
     <li>
-      <a href="project2.html">Note #4</a>
+      <a href="hw2.html">Note #4</a>
     </li>
   </ul>
 </li>
@@ -219,7 +219,7 @@ $(document).ready(function () {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Chapter 1</li>
+    <li class="dropdown-header">Week 1</li>
     <li>
       <a href="hw1.html">HW #1</a>
     </li>
@@ -227,12 +227,41 @@ $(document).ready(function () {
       <a href="hw2.html">HW #2</a>
     </li>
     <li class="divider"></li>
-    <li class="dropdown-header">Chapter 2</li>
+    <li class="dropdown-header">Week 2</li>
     <li>
-      <a href="hw1.html">HW #3</a>
+      <a href="hw3.html">HW #3</a>
     </li>
     <li>
-      <a href="project2.html">HW #4</a>
+      <a href="hw4.html">HW #4</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 3</li>
+    <li>
+      <a href="hw5.html">HW #5</a>
+    </li>
+    <li>
+      <a href="hw6.html">HW #6</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 4</li>
+    <li>
+      <a href="hw7.html">HW #7</a>
+    </li>
+    <li>
+      <a href="hw8.html">HW #8</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 5</li>
+    <li>
+      <a href="hw9.html">HW #9</a>
+    </li>
+    <li>
+      <a href="hw10.html">HW #10</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 6</li>
+    <li>
+      <a href="hw11.html">HW #11</a>
     </li>
   </ul>
 </li>
@@ -293,24 +322,210 @@ $(document).ready(function () {
 </div>
 
 
-<div id="r-markdown" class="section level2">
-<h2>R Markdown</h2>
-<p>this is test This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
-<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
-<pre class="r"><code>summary(cars)</code></pre>
-<pre><code>##      speed           dist       
-##  Min.   : 4.0   Min.   :  2.00  
-##  1st Qu.:12.0   1st Qu.: 26.00  
-##  Median :15.0   Median : 36.00  
-##  Mean   :15.4   Mean   : 42.98  
-##  3rd Qu.:19.0   3rd Qu.: 56.00  
-##  Max.   :25.0   Max.   :120.00</code></pre>
+<div id="you-can-also-get-the-pdf-format-of-wenqiangs-homework." class="section level2">
+<h2>You can also get the <a href="./pdf/HW1.pdf">PDF format</a> of Wenqiang’s Homework.</h2>
+<div id="required-library" class="section level4">
+<h4>Required library</h4>
+<pre class="r"><code>library(histogram)
+library(plyr)</code></pre>
 </div>
-<div id="including-plots" class="section level2">
-<h2>Including Plots</h2>
-<p>You can also embed plots, for example:</p>
-<p><img src="hw1_files/figure-html/pressure-1.png" width="672" /></p>
-<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
+<div id="load-data" class="section level4">
+<h4>Load data</h4>
+<pre class="r"><code>homeownership = read.table(&quot;./data/ex3-11.TXT&quot;, header = T)
+hiv = read.table(&quot;./data/ex3-76.TXT&quot;, header = T)</code></pre>
+</div>
+</div>
+<div id="q-3.11a" class="section level2">
+<h2>Q 3.11(a)</h2>
+<pre class="r"><code>## X1985
+par(mfrow=c(3,1))
+hist(homeownership$X1985, freq = F, right = F, ylim = c(0, 0.12), 
+     xlim = c(30, 100), xlab = &quot;1985&quot;, ylab = &quot;Relative Frequency&quot;, 
+     main = &quot;&quot;, breaks = 20)
+## X1996
+hist(homeownership$X1996, freq = F, right = F, ylim = c(0, 0.12), 
+     xlim = c(30, 100), xlab = &quot;1996&quot;, ylab = &quot;Relative Frequency&quot;, 
+     main = &quot;&quot;, breaks = 20)
+## X2002
+hist(homeownership$X2002, freq = F, right = F, ylim = c(0, 0.12), 
+     xlim = c(30, 100), xlab = &quot;2002&quot;, ylab = &quot;Relative Frequency&quot;, 
+     main = &quot;&quot;, breaks = 20)</code></pre>
+<p><img src="hw1_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+</div>
+<div id="q-3.11b" class="section level2">
+<h2>Q 3.11(b)</h2>
+<p>The three histograms have similar shape. The average homeownship rate has increased since 1985.</p>
+<pre class="r"><code>colMeans(homeownership[,2:4])</code></pre>
+<pre><code>##    X1985    X1996    X2002 
+## 65.87647 66.84314 69.44902</code></pre>
+</div>
+<div id="q-3.11c" class="section level2">
+<h2>Q 3.11(c)</h2>
+<p>Increases in families incomes so more people can purchase homes.</p>
+</div>
+<div id="q-3.11d" class="section level2">
+<h2>Q 3.11(d)</h2>
+<p>The average homeship rate increases from 65.87% to 69.44% from 1985 to 2002. This is very small inscrease in a long time period. The Congress should write laws to increase tax deductions so that more people can purchase homes.</p>
+</div>
+<div id="q-3.12" class="section level2">
+<h2>Q 3.12</h2>
+<p>Stem-and-leaf plots</p>
+<ul>
+<li>Year 1985</li>
+</ul>
+<pre class="r"><code>stem(homeownership$X1985)</code></pre>
+<pre><code>## 
+##   The decimal point is 1 digit(s) to the right of the |
+## 
+##   3 | 7
+##   4 | 
+##   4 | 
+##   5 | 014
+##   5 | 7
+##   6 | 1111122344
+##   6 | 5667777888888899999
+##   7 | 0000000011122234
+##   7 | 6</code></pre>
+<ul>
+<li>Year 1996</li>
+</ul>
+<pre class="r"><code>stem(homeownership$X1996)</code></pre>
+<pre><code>## 
+##   The decimal point is 1 digit(s) to the right of the |
+## 
+##   4 | 0
+##   4 | 
+##   5 | 13
+##   5 | 57
+##   6 | 1222333
+##   6 | 5555777778888888999999
+##   7 | 000112233333344
+##   7 | 57</code></pre>
+<ul>
+<li>Year 2002</li>
+</ul>
+<pre class="r"><code>stem(homeownership$X2002)</code></pre>
+<pre><code>## 
+##   The decimal point is 1 digit(s) to the right of the |
+## 
+##   4 | 4
+##   4 | 
+##   5 | 
+##   5 | 578
+##   6 | 034
+##   6 | 666777789999
+##   7 | 000000000222222333444444
+##   7 | 55566777</code></pre>
+</div>
+<div id="q-3.13-descriptions-of-the-stem-and-leaf-plots" class="section level2">
+<h2>Q 3.13: Descriptions of the stem-and-leaf plots</h2>
+<p>Both the stem-and-leaf and histogram for all three years are asymmetrical, unimodal and left skewed.</p>
+</div>
+<div id="q-3.36a" class="section level2">
+<h2>Q 3.36(a)</h2>
+<p>Boxplots</p>
+<pre class="r"><code>boxplot(homeownership$X1985, xlab=&quot;1985&quot;, ylim=c(30, 80))</code></pre>
+<p><img src="hw1_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<pre class="r"><code>boxplot(homeownership$X1996, xlab=&quot;1996&quot;, ylim=c(30, 80))</code></pre>
+<p><img src="hw1_files/figure-html/unnamed-chunk-8-2.png" width="672" /></p>
+<pre class="r"><code>boxplot(homeownership$X2002, xlab=&quot;2002&quot;, ylim=c(30, 80))</code></pre>
+<p><img src="hw1_files/figure-html/unnamed-chunk-8-3.png" width="672" /></p>
+<p>Three boxplots are all asysmmetric and left skewed.</p>
+</div>
+<div id="q-3.36b" class="section level2">
+<h2>Q 3.36(b)</h2>
+<p>Boxplots give the same information from the stem-and-leaf and histograms in 3.11: asysmmetric and left skewed data for all three years.</p>
+</div>
+<div id="q-3.37" class="section level2">
+<h2>Q 3.37</h2>
+<ul>
+<li>Mean, median and standard deviation</li>
+</ul>
+<pre class="r"><code>colMeans(homeownership[,2:4])</code></pre>
+<pre><code>##    X1985    X1996    X2002 
+## 65.87647 66.84314 69.44902</code></pre>
+<ul>
+<li>Median</li>
+</ul>
+<pre class="r"><code>colwise(median)(homeownership[,2:4])</code></pre>
+<pre><code>##   X1985 X1996 X2002
+## 1  67.9  68.2  70.2</code></pre>
+<ul>
+<li>Standard deviation</li>
+</ul>
+<pre class="r"><code>colwise(sd)(homeownership[,2:4])</code></pre>
+<pre><code>##      X1985    X1996    X2002
+## 1 6.734407 6.688027 6.162901</code></pre>
+</div>
+<div id="q-3.37a" class="section level2">
+<h2>Q 3.37(a)</h2>
+<p>The <strong>median</strong> is more approriate than the mean for these data sets, because the data sets are skewed</p>
+</div>
+<div id="q-3.37b" class="section level2">
+<h2>Q 3.37(b)</h2>
+<p>The variability continously descreased since 1985.</p>
+</div>
+<div id="q-3.38" class="section level2">
+<h2>Q 3.38</h2>
+<pre class="r"><code>y = c(homeownership$X1985, homeownership$X1996, homeownership$X2002)
+x = rep(c(&quot;X1985&quot;, &quot;X1996&quot;, &quot;X2002&quot;), each=nrow(homeownership))
+boxplot(y~x)</code></pre>
+<p><img src="hw1_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+<div id="q-3.38a" class="section level2">
+<h2>Q 3.38(a)</h2>
+<p>The median hownownership rate continously increased from 1985 to 2002</p>
+</div>
+<div id="q-3.38b" class="section level2">
+<h2>Q 3.38(b)</h2>
+<p>The variation hownownership rate continously decreased from 1985 to 2002.</p>
+</div>
+<div id="q-3.38c" class="section level2">
+<h2>Q 3.38(c)</h2>
+<ul>
+<li>Yes.</li>
+<li>State 9, 33, 12 are extremely low in homeownership rate in 1985.</li>
+<li>State 9, 12, 33 are extremely low in homeownership rate in 1996.</li>
+<li>State 9, 33, 12 are extremely low in homeownership rate in 2002.</li>
+</ul>
+</div>
+<div id="q-3.38d" class="section level2">
+<h2>Q 3.38(d)</h2>
+<p>No.</p>
+</div>
+<div id="a" class="section level2">
+<h2>3.76(a)</h2>
+<p>Mean, median and standard deviation</p>
+<pre class="r"><code>data.frame(mean=mean(hiv$HIV_RNA), 
+           median=median(hiv$HIV_RNA),
+           std=sd(hiv$HIV_RNA))</code></pre>
+<pre><code>##       mean  median      std
+## 1 61667.95 13956.5 117539.3</code></pre>
+</div>
+<div id="b" class="section level2">
+<h2>3.76(b)</h2>
+<p>25%, 50% and 75% percentiles</p>
+<pre class="r"><code>quantile(hiv$HIV_RNA)[2:4]</code></pre>
+<pre><code>##      25%      50%      75% 
+##  9967.00 13956.50 56975.75</code></pre>
+</div>
+<div id="c" class="section level2">
+<h2>3.76(c)</h2>
+<ul>
+<li>boxplot</li>
+</ul>
+<pre class="r"><code>boxplot(hiv$HIV_RNA, main=&quot;HIV RNA&quot;)</code></pre>
+<p><img src="hw1_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<ul>
+<li>histogram</li>
+</ul>
+<pre class="r"><code>hist(hiv$HIV_RNA, xlab=&quot;HIV RNA&quot;, main=&quot;&quot;, 
+     ylim=c(0,20), breaks=10)</code></pre>
+<p><img src="hw1_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+</div>
+<div id="d" class="section level2">
+<h2>3.76(d)</h2>
+<p>The distribution is unimodal and right skewed.</p>
 </div>
 
 <center>Copyright &copy; 2017 Ming Chen  & Wenqiang Feng. All rights reserved.</center>

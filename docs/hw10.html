@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Ming Chen &amp; Wenqiang Feng" />
+
+
+<title>Homework #10</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">STAT 537: Statistics for Research I</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-gear"></span>
+     
+    Notes
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Chapter 1</li>
+    <li>
+      <a href="hw1.html">Note #1</a>
+    </li>
+    <li>
+      <a href="hw2.html">Note #2</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Chapter 2</li>
+    <li>
+      <a href="hw1.html">Note #3</a>
+    </li>
+    <li>
+      <a href="hw2.html">Note #4</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-gear"></span>
+     
+    Homework
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Week 1</li>
+    <li>
+      <a href="hw1.html">HW #1</a>
+    </li>
+    <li>
+      <a href="hw2.html">HW #2</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 2</li>
+    <li>
+      <a href="hw3.html">HW #3</a>
+    </li>
+    <li>
+      <a href="hw4.html">HW #4</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 3</li>
+    <li>
+      <a href="hw5.html">HW #5</a>
+    </li>
+    <li>
+      <a href="hw6.html">HW #6</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 4</li>
+    <li>
+      <a href="hw7.html">HW #7</a>
+    </li>
+    <li>
+      <a href="hw8.html">HW #8</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 5</li>
+    <li>
+      <a href="hw9.html">HW #9</a>
+    </li>
+    <li>
+      <a href="hw10.html">HW #10</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Week 6</li>
+    <li>
+      <a href="hw11.html">HW #11</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-gear"></span>
+     
+    Project
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Project 1</li>
+    <li>
+      <a href="project1.html">Project #1</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Project 2</li>
+    <li>
+      <a href="project2.html">Project #2</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="about.html">
+    <span class="fa fa-info"></span>
+     
+    About
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/runawayhorse001/STAT537">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://web.utk.edu/~wfeng1">
+    <span class="fa fa-question fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Homework #10</h1>
+<h4 class="author"><em>Ming Chen &amp; Wenqiang Feng</em></h4>
+<h4 class="date"><em>2/2/2017</em></h4>
+
+</div>
+
+
+<div id="you-can-also-get-the-pdf-format-of-wenqiangs-homework." class="section level2">
+<h2>You can also get the <a href="./pdf/HW10.pdf">PDF format</a> of Wenqiang’s Homework.</h2>
+</div>
+<div id="data-preparation-for-problem-12.45" class="section level2">
+<h2>Data preparation for problem 12.45</h2>
+<pre class="r"><code>hw10data = read.table(&quot;./data/ex12-45.TXT&quot;, header = T)
+aggLevel = hw10data[1:12, 1]
+race = as.factor(hw10data[1:12, 2])
+race = relevel(race, ref=&quot;White&quot;)
+deathYes = hw10data[1:12, 4]
+deathNo = hw10data[13:24, 4]
+hw10dataNew = data.frame(aggLevel, race, deathYes, deathNo); hw10dataNew</code></pre>
+<pre><code>##    aggLevel  race deathYes deathNo
+## 1         1 White        2      60
+## 2         1 Black        1     181
+## 3         2 White        2      15
+## 4         2 Black        1      21
+## 5         3 White        6       7
+## 6         3 Black        2       9
+## 7         4 White        9       3
+## 8         4 Black        2       4
+## 9         5 White        9       0
+## 10        5 Black        4       3
+## 11        6 White       17       0
+## 12        6 Black        4       0</code></pre>
+<div id="problem-a" class="section level4">
+<h4>problem a</h4>
+<pre class="r"><code>hw10data = read.table(&quot;./data/ex12-45.TXT&quot;, header = T)
+aggLevel = as.factor(hw10data[1:12, 1])
+race = as.factor(hw10data[1:12, 2])
+race = relevel(race, ref=&quot;White&quot;)
+deathYes = hw10data[1:12, 4]
+deathNo = hw10data[13:24, 4]
+mod = glm(cbind(deathYes, deathNo)~1+aggLevel+race, family = binomial(link = &quot;logit&quot;))
+summary(mod)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = cbind(deathYes, deathNo) ~ 1 + aggLevel + race, 
+##     family = binomial(link = &quot;logit&quot;))
+## 
+## Deviance Residuals: 
+##        1         2         3         4         5         6         7  
+##  0.02705  -0.03705  -0.27695   0.46062  -0.22255   0.33222   0.02846  
+##        8         9        10        11        12  
+## -0.03695   1.21437  -0.55797   0.00006   0.00007  
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)   -3.4207     0.6144  -5.567 2.59e-08 ***
+## aggLevel2      1.6090     0.8506   1.892  0.05855 .  
+## aggLevel3      3.3902     0.7474   4.536 5.74e-06 ***
+## aggLevel4      4.5004     0.7858   5.727 1.02e-08 ***
+## aggLevel5      5.8814     0.9128   6.443 1.17e-10 ***
+## aggLevel6     26.2636  8772.8073   0.003  0.99761    
+## raceBlack     -1.7409     0.5426  -3.208  0.00134 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 212.2838  on 11  degrees of freedom
+## Residual deviance:   2.2391  on  5  degrees of freedom
+## AIC: 38.105
+## 
+## Number of Fisher Scoring iterations: 19</code></pre>
+<p>Set aggravation level 1 as the reference level, then the odds ratio for the other five levels are:</p>
+<ul>
+<li>aggravation level 2: <span class="math inline">\(e^{\beta_{agglevel2}}\)</span> = 1.6089532</li>
+<li>aggravation level 3: <span class="math inline">\(e^{\beta_{agglevel3}}\)</span> = 3.3902046</li>
+<li>aggravation level 4: <span class="math inline">\(e^{\beta_{agglevel4}}\)</span> = 4.5003698</li>
+<li>aggravation level 5: <span class="math inline">\(e^{\beta_{agglevel5}}\)</span> = 5.8813775</li>
+<li>aggravation level 6: <span class="math inline">\(e^{\beta_{agglevel6}}\)</span> = 26.2636227</li>
+</ul>
+</div>
+<div id="problem-b" class="section level4">
+<h4>problem b</h4>
+<pre class="r"><code>hw10data = read.table(&quot;./data/ex12-45.TXT&quot;, header = T)
+aggLevel = hw10data[1:12, 1]
+race = as.factor(hw10data[1:12, 2])
+race = relevel(race, ref=&quot;White&quot;)
+deathYes = hw10data[1:12, 4]
+deathNo = hw10data[13:24, 4]
+mod = glm(cbind(deathYes, deathNo)~1+aggLevel+race, family = binomial(link = &quot;logit&quot;))
+summary(mod)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = cbind(deathYes, deathNo) ~ 1 + aggLevel + race, 
+##     family = binomial(link = &quot;logit&quot;))
+## 
+## Deviance Residuals: 
+##      Min        1Q    Median        3Q       Max  
+## -0.93570  -0.22548   0.05142   0.65620   1.01444  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -4.8653     0.6004  -8.103 5.37e-16 ***
+## aggLevel      1.5397     0.1867   8.246  &lt; 2e-16 ***
+## raceBlack    -1.8106     0.5361  -3.377 0.000732 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 212.2838  on 11  degrees of freedom
+## Residual deviance:   3.8816  on  9  degrees of freedom
+## AIC: 31.747
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<pre class="r"><code>beta0 = coef(mod)[&#39;(Intercept)&#39;]
+betaAggLevel = coef(mod)[&#39;aggLevel&#39;] 
+betaRace = coef(mod)[&#39;raceBlack&#39;]</code></pre>
+<p>Model: <span class="math inline">\(logit(\hat{\pi})\)</span> = -4.8653284 + 1.5396614*(aggLevel) -1.8106466*(race=black)</p>
+</div>
+<div id="problem-c" class="section level4">
+<h4>problem c</h4>
+<pre class="r"><code>pVal = coef(summary(mod))[&#39;aggLevel&#39;, &#39;Pr(&gt;|z|)&#39;]; pVal</code></pre>
+<pre><code>## [1] 1.64349e-16</code></pre>
+<p>Yes. p-value = 1.64349e-16, indicating a strong evidence of association between the severity of the crime and the probability of receiving the death penalty.</p>
+</div>
+<div id="problem-d" class="section level4">
+<h4>problem d</h4>
+<pre class="r"><code>dataBlack = hw10dataNew[race==&quot;Black&quot;, ]
+modBlack = glm(cbind(deathYes, deathNo)~aggLevel, family = binomial(link = &quot;logit&quot;), data=dataBlack)
+summary(modBlack)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = cbind(deathYes, deathNo) ~ aggLevel, family = binomial(link = &quot;logit&quot;), 
+##     data = dataBlack)
+## 
+## Deviance Residuals: 
+##       2        4        6        8       10       12  
+## -0.3966   0.3456   0.6146  -0.1022  -0.6614   0.9132  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -6.2319     0.9015  -6.913 4.75e-12 ***
+## aggLevel      1.4067     0.2466   5.705 1.17e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 57.5843  on 5  degrees of freedom
+## Residual deviance:  1.9364  on 4  degrees of freedom
+## AIC: 16.973
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<pre class="r"><code>dataWhite = hw10dataNew[race==&quot;White&quot;, ]
+modWhite = glm(cbind(deathYes, deathNo)~aggLevel, family = binomial(link = &quot;logit&quot;), data=dataWhite)
+summary(modWhite)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = cbind(deathYes, deathNo) ~ aggLevel, family = binomial(link = &quot;logit&quot;), 
+##     data = dataWhite)
+## 
+## Deviance Residuals: 
+##       1        3        5        7        9       11  
+##  0.2315  -0.1673   0.1000  -0.5411   0.8681   0.5192  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -5.2531     0.8480  -6.194 5.85e-10 ***
+## aggLevel      1.6811     0.2842   5.916 3.30e-09 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 106.2819  on 5  degrees of freedom
+## Residual deviance:   1.4074  on 4  degrees of freedom
+## AIC: 16.236
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<ul>
+<li>The severity of the crime has a significant effect on the probability of receiving the death penalty in both races.</li>
+<li>The severity of the crime is positively associated with the probability of receiving the death penalty for both the black and the white.</li>
+<li>The effect in the race of black (1.4067138) is slightly lower than the effect in the race of white (1.6810983).</li>
+</ul>
+</div>
+<div id="problem-e" class="section level4">
+<h4>problem e</h4>
+<pre class="r"><code>library(HH)
+#black_y = predict(modBlack, data.frame(aggLevel=3), type=&quot;response&quot;); black_y
+black_CI = interval(modBlack, newdata=data.frame(aggLevel=3), type=&quot;response&quot;); black_CI</code></pre>
+<pre><code>##         fit     ci.low     ci.hi      pi.low     pi.hi
+## 1 0.1179736 0.04227748 0.2883896 0.006684025 0.7266728</code></pre>
+<pre class="r"><code># white_y = predict(modWhite, data.frame(aggLevel=3), type=&quot;response&quot;); white_y
+white_CI = interval(modWhite, newdata=data.frame(aggLevel=3), type=&quot;response&quot;); white_CI</code></pre>
+<pre><code>##         fit   ci.low     ci.hi     pi.low    pi.hi
+## 1 0.4477287 0.240278 0.6751238 0.04142656 0.938302</code></pre>
+<ul>
+<li>Black victim
+<ul>
+<li><span class="math inline">\(\hat{\pi}\)</span> = 0.1179736</li>
+<li>95% CI = [0.006684, 0.7266728]</li>
+</ul></li>
+<li>White victim
+<ul>
+<li><span class="math inline">\(\hat{\pi}\)</span> = 0.4477287</li>
+<li>95% CI = [0.0414266, 0.938302]</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<center>Copyright &copy; 2017 Ming Chen  & Wenqiang Feng. All rights reserved.</center>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

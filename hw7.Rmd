@@ -1,0 +1,93 @@
+---
+title: "Homework #7"
+author: "Ming Chen & Wenqiang Feng"
+date: "2/2/2017"
+output: html_document
+---
+
+## You can also get the [PDF format](./pdf/HW7.pdf) of Wenqiang's Homework.
+
+
+### Load data
+
+```{R}
+riverValley = read.csv("./data/ArkansasRiverValley.csv")
+```
+
+### Correlation
+
+* (1). scatterplot
+
+```{R fig.width=5, fig.height=5}
+plot(Yield~GrainSize, data=riverValley, xlab="Grain Size", ylab="Yield")
+```
+
+* (2). Compute
+    + Pearson $r = 0.667871$
+    + Spearmans $\rho$ = 0.7634203
+
+
+```{R}
+## Pearson's r
+cor(riverValley$GrainSize, riverValley$Yield, method="pearson")
+
+## Spearman's rho
+cor(riverValley$GrainSize, riverValley$Yield, method="spearman")
+```
+
+
+* (3). Test hypothesis
+    + a. P value = 7.543e-09 < 0.05, reject $H_{0}$. There is a significant correlation between grain size and yield.
+    + b. P value = 2.059e-12 < 0.05, reject $H_{0}$. There is a significant correlation between grain size and yield.
+
+```{R warning=F}
+cor.test(riverValley$GrainSize, riverValley$Yield, method="pearson")
+cor.test(riverValley$GrainSize, riverValley$Yield, method="spearman")
+```
+
+* (4). 95% confidence interval for $\rho$ = [0.630624, 0.8527845]
+
+```{R warning=F}
+library(mada)
+rho = cor.test(riverValley$GrainSize, riverValley$Yield, method="spearman")$estimate
+CIrho(rho, dim(riverValley)[1])
+```
+
+
+### Regression
+
+
+```{R}
+
+```
+
+* (1). Scatterplot
+
+```{R fig.width=5, fig.height=5}
+rivervalley.lmfit = lm(Yield~GrainSize, data=riverValley)
+plot(Yield~GrainSize, data=riverValley)
+abline(rivervalley.lmfit, col="blue", lwd=2)
+```
+
+* (2). Estimates
+    + $\beta_{0} = -9.294$
+    + $\beta_{1} = 744.979$
+```{R}
+rivervalley.lmfit
+```
+
+* (3). Test the hypothesis
+    + p value = 7.54e-09 < 0.05, reject $H_{0}$
+    
+```{R}
+summary(rivervalley.lmfit)
+```
+
+* (4) Residuals
+
+```{R}
+res = rivervalley.lmfit$residuals
+fitted = rivervalley.lmfit$fitted.values
+y = riverValley$Yield
+data.frame(Y=y, Fitted_value = fitted, Residuals = res)
+```

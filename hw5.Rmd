@@ -1,0 +1,150 @@
+---
+title: "Homework #5"
+author: "Ming Chen & Wenqiang Feng"
+date: "2/2/2017"
+output: html_document
+---
+
+## You can also get the [PDF format](./pdf/HW5.pdf) of Wenqiang's Homework.
+
+## Exercise 6.44
+
+* (a). What are the populations of interest?
+    + The plants of tobacco treated with two different fumigants
+    + The variable being studies is the number of parasites from the plants 
+
+* (b). Yes. The p-value is 2.089e-05, which is a strong evidence to indicate a difference in the mean level of parasites for the two fumigants.
+
+```{R}
+F1 = c(77,40,11,31,28,50,53,26,33)
+F2 = c(76,38,10,29,27,48,51,24,32)
+
+t.test(F1, F2, paired = T, conf.level = 0.90)
+```
+
+* (c). the size of diference = 1.555556, 90% CI = [1.228866, 1.882245]
+
+
+
+## Exercise 6.46
+
+```{R}
+abundance = c(5124,2904,3600,2880,2578,4146,1048,1336,394,7370,6762,744,1874,
+              3228,2032,3256,3816,2438,4897,1346,1676,2008,2224,1234,1598,2182)
+depth = c(rep(40, 13), rep(100, 13))
+oil_traj = c(rep(c("within", "outside"), c(7,6)), 
+             rep(c("within", "outside"), c(7,6)))
+pop_abundance = data.frame(abundance, as.factor(depth), oil_traj)
+```
+
+```{R}
+library(dplyr)
+within = filter(pop_abundance, oil_traj=='within')$abundance
+outside = filter(pop_abundance, oil_traj=='outside')$abundance
+```
+
+### Exercise 6.46 (a) 
+
+* Since the variances between the two groups are very different, we use the separate variance t-test.
+    + $Var_{within}$ = `var(within)` = `r var(within)`
+    + $Var_{outside}$ = `var(outside)` = `r var(outside)`
+* separate variance t-test
+    + $H_{0}: \mu_{within} = \mu_{outside}$ vs. $H_{a}: \mu_{within} \neq \mu_{outside}$
+    + P-value = 0.384 > 0.05, fail to rejct the $H_{0}$
+    + Conclusion: no sufficient evidence to indicate a difference in average population abundance
+
+```{R}
+t.test(within, outside, var.equal = FALSE)
+```
+
+
+### Exercise 6.46 (b)
+
+* Size of the difference: 0
+* 95% CI: [-877.7749, 2162.1558]
+
+### Exercise 6.46 (c)
+
+* Required conditions:
+    + 1. independent samples
+    + 2. two samples are approximately normally distributed
+    
+    
+### Exercise 6.46 (d)
+
+* QQ plot shows that 
+    + the data from the within oil trajectory appears normally distributed
+    + the data from the outside oil trajectory is not normally distributed
+
+```{R}
+par(mfcol=c(1,2))
+qqnorm(within, main="Within oil trajectory")
+qqline(within)
+
+qqnorm(outside, main="Outside oil trajectory")
+qqline(outside)
+```
+
+* Unequal variance
+    + The two samples have unequal variances
+    + Outside oil trajectory data has larger variance
+    
+```{R}
+par(mfcol=c(1,1))
+boxplot(within, outside, names=c("within", "outside"))
+```
+
+## Exercise 7.25(a)
+* Data input
+
+```{R}
+portfolio1 = c(130,135,135,131,129,135,126,136,127,132)
+portfolio2 = c(154,144,147,150,155,153,149,139,140,141)
+sd(portfolio1)^2
+```
+
+* Levene test
+    + The p-value = 0.07724 > 0.05 from the levene test below indicates that we failed to reject the $H_{0}$ hypothesis. There is no strong evidence to support that portfolio 2 has higher risk than portfolio 1.
+    
+```{R}
+library(car)
+dt = data.frame(y=c(portfolio1, portfolio2), 
+                group=rep(c("1", "2"), c(length(portfolio1), length(portfolio2))))
+leveneTest(y~group, dt)
+```
+
+## Exercise 7.26
+
+
+* Tests for two population variances
+    + $H_{0}: two variances are eqaul vs. H_{a}: two varainces are not equal
+    + P-value = 0.1485 > 0.05, fail to rejct $H_{O}$.
+    + Conclusion: the two variances are equal
+
+```{R}
+var.test(portfolio1, portfolio2)
+```
+  
+* Tests for normality
+    + QQ plots show that the two samples are approximately normally distributed.
+
+```{R}
+par(mfcol=c(1,2))
+qqnorm(portfolio1, main = "Portfolio 1")
+qqline(portfolio1)
+
+qqnorm(portfolio2, main = "Portfolio 2")
+qqline(portfolio2)
+par(mfcol=c(1,1))
+```
+
+
+* __Since the two samples are randomly selected, normally distributed and have equal variance, I choose the pooled variance t-test to detect if there is any differences in the average returns for the two portfolios.__
+
+    + $H_{0}: \mu_{1} = \mu_{2}$ vs. $H_{a}: \mu_{1} \neq \mu_{2}$
+    + P-value = 1.314e-06 < 0.0001, reject $H_{0}$
+    + Conclusion: there is strong evidence that a difference in the mean returns of the two portfolios exits. 
+    
+```{R}
+t.test(portfolio1, portfolio2, var.equal = T)
+```
